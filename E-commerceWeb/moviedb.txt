@@ -1,0 +1,281 @@
+CREATE DATABASE  IF NOT EXISTS `movieserver` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `movieserver`;
+-- MySQL dump 10.13  Distrib 5.6.17, for Linux (i686)
+--
+-- Host: localhost    Database: movieserver
+-- ------------------------------------------------------
+-- Server version	5.1.66
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `Account`
+--
+
+DROP TABLE IF EXISTS `Account`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Account` (
+  `userName` varchar(20) DEFAULT NULL,
+  `holderLastName` varchar(20) NOT NULL,
+  `holderFirstName` varchar(20) NOT NULL,
+  `cardNumber` char(16) NOT NULL,
+  `exipirationDate` int(10) NOT NULL,
+  `shippingAddr` varchar(100) NOT NULL,
+  `billingAddr` varchar(100) NOT NULL,
+  KEY `userName` (`userName`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Account`
+--
+
+LOCK TABLES `Account` WRITE;
+/*!40000 ALTER TABLE `Account` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Account` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+--
+-- Table structure for table `Inventory`
+--
+
+DROP TABLE IF EXISTS `Inventory`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Inventory` (
+  `imdb` varchar(30) NOT NULL DEFAULT '',
+  `name` varchar(40) NOT NULL,
+  `director` varchar(40) NOT NULL,
+  `genre` varchar(20) NOT NULL,
+  `price` float(5,2) DEFAULT NULL,
+  `description` varchar(100) DEFAULT NULL,
+  `dateAdded` date DEFAULT NULL,
+  PRIMARY KEY (`imdb`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Inventory`
+--
+
+LOCK TABLES `Inventory` WRITE;
+/*!40000 ALTER TABLE `Inventory` DISABLE KEYS */;
+INSERT INTO `Inventory` VALUES ('tt2024469','Non-Stop','Jaume Collet-Serra','Action',9.99,NULL,NULL),('tt0458481','Sin City','Robert Rodriguez','Crime',7.99,NULL,NULL),('tt0111161','The Shawshank','JFrank Darabont','Drama',5.99,NULL,NULL),('tt0468569','The Dark Knight','Christopher Nolan','Action',9.99,NULL,NULL);
+/*!40000 ALTER TABLE `Inventory` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Review`
+--
+
+DROP TABLE IF EXISTS `Review`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Review` (
+  `username` varchar(20) DEFAULT NULL,
+  `imdb` varchar(30) DEFAULT NULL,
+  `rank` tinyint(1) NOT NULL,
+  `comment` varchar(1000) DEFAULT NULL,
+  KEY `username` (`username`),
+  KEY `imdb` (`imdb`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Review`
+--
+
+LOCK TABLES `Review` WRITE;
+/*!40000 ALTER TABLE `Review` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Review` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+--
+-- Table structure for table `BigOrder`
+--
+
+DROP TABLE IF EXISTS `Order`;
+DROP TABLE IF EXISTS `OrderI`;
+DROP TABLE IF EXISTS `BigOrder`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `BigOrder` (
+  `orderID` int NOT NULL AUTO_INCREMENT,
+  `userName` varchar(20) DEFAULT NULL,
+  `holderLastName` varchar(20) NOT NULL,
+  `holderFirstName` varchar(20) NOT NULL,
+  `cardNumber` char(16) NOT NULL,
+  `exipirationDate` int(10) NOT NULL,
+  `shippingAddr` varchar(100) NOT NULL,
+  `billingAddr` varchar(100) NOT NULL,
+  PRIMARY KEY (orderID)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `BigOrder`
+--
+
+
+
+--
+-- Table structure for table `ShoppingOrder`
+--
+
+DROP TABLE IF EXISTS `ShoppingOrder`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ShoppingOrder` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `orderid` int(11) NOT NULL,
+  `username` varchar(20) DEFAULT NULL,
+  `item` varchar(30) DEFAULT NULL,
+  `count` tinyint(2) DEFAULT NULL,
+  `dateOrdered` date NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `username` (`username`),
+  KEY `item` (`item`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ShoppingOrder`
+--
+
+LOCK TABLES `ShoppingOrder` WRITE;
+/*!40000 ALTER TABLE `ShoppingOrder` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ShoppingOrder` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `hotlist`
+--
+
+DROP TABLE IF EXISTS `hotList`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `hotList` (
+  `cardNumber` char(16) DEFAULT NULL,
+  UNIQUE KEY `cardNumber` (`cardNumber`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hotList`
+--
+
+LOCK TABLES `hotList` WRITE;
+INSERT INTO `hotList` VALUES ('1234567812345678');
+/*!40000 ALTER TABLE `hotList` DISABLE KEYS */;
+/*!40000 ALTER TABLE `hotList` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `AlertEvent`
+--
+
+DROP TABLE IF EXISTS `alertEvent`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `alertEvent` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userName` varchar(20) DEFAULT NULL,
+  `holderFirstName` varchar(20) NOT NULL,
+  `holderLastName` varchar(20) NOT NULL,
+  `cardNumber` char(16) DEFAULT NULL,
+  `IP` varchar(15) NOT NULL,
+  `Time` datetime NOT NULL,
+  `description` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `userName` (`userName`),
+  KEY `cardNumber` (`cardNumber`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `alertEvent`
+--
+
+LOCK TABLES `alertEvent` WRITE;
+INSERT INTO `alertEvent` VALUES(1,'HF', 'Feather', 'Half', '1234567812345678', '255.255.255.255', '2014-10-01 00:00:00', 'Credit card on hot list detected and stopped.');
+/*!40000 ALTER TABLE `alertEvent` DISABLE KEYS */;
+/*!40000 ALTER TABLE `alertEvent` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cart`
+--
+
+DROP TABLE IF EXISTS `cart`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cart` (
+  `userid` varchar(20) NOT NULL DEFAULT '',
+  `itemid` varchar(30) NOT NULL,
+  `price` float(5,2) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  KEY `imdb` (`itemid`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cart`
+--
+
+LOCK TABLES `cart` WRITE;
+/*!40000 ALTER TABLE `cart` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cart` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `userid` varchar(45) NOT NULL,
+  `password` varchar(100) DEFAULT NULL,
+  `firstname` varchar(100) DEFAULT NULL,
+  `lastname` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `age` varchar(45) DEFAULT NULL,
+  `hphold` int(11) DEFAULT NULL,
+  `isadmin` int(11) DEFAULT '0',
+  PRIMARY KEY (`userid`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES ('admin','5fcf82bc15aef42cd3ec93e6d4b51c04df110cf77ee715f62f3f172ff8ed9de9','Irene','Adler','adler@gwu.edu','25',100,1),('normaluser','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','firstname','lastname','user@test.com','25',100,0);
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2014-10-21  1:35:18

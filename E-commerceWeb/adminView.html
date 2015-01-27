@@ -1,0 +1,55 @@
+<html>
+<header>
+<title> Display page</title>
+
+<script>
+function showUser(str) {
+  if (str=="") {
+    document.getElementById("txtHint").innerHTML="";
+    return;
+  } 
+  if (window.XMLHttpRequest) {
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+  } else { // code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xmlhttp.onreadystatechange=function() {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+      document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
+    }
+  }
+  xmlhttp.open("GET","getItem.php?q="+str,true);
+  xmlhttp.send();
+}
+</script>
+</header>
+
+<body>
+Hello Admin, <a href="index.php">Logout</a>
+<form>
+    <select name="users" onchange="showUser(this.value)">
+     <option value="" id="Select">Select to order</option>
+      <option value="price" id="price">price</option> 
+      <option value="genre" id="genre">genre</option>
+      <option value="director" id="director">director</option>
+      <option value="name" id="name">name</option>
+      <option value="imdb" id="imdb">imdb</option>
+    </select>
+</form>
+
+<br>
+
+<div style="position: absolute; top:3%; left:70%; font-size:.6em;">
+<a  href="addItem.html">Add New Item</a>
+</div>
+<div style="position: absolute; top:3%; left:80%; font-size:.6em;">
+<a  href="hotList.php">Edit HotList</a>
+</div>
+<div style="position: absolute; top:3%; left:90%; font-size:.6em;">
+<a  href="alertList.php">View AlertList</a>
+</div>
+
+<div id="txtHint"><b>Movie info will be listed here.</b></div>
+</body>
+</html>
