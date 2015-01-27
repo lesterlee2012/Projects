@@ -1,0 +1,319 @@
+[Root]
+Most Recent Package=DOTA英雄战斗模拟器
+
+
+[Package|标准安装软件包|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=C:\新建文件夹
+
+[Package|标准安装软件包|Configure DAO ISAMs]
+Applicable=No
+
+[Package|标准安装软件包|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|标准安装软件包|Files Found]
+
+[Package|标准安装软件包|Files Released]
+
+[Package|标准安装软件包|Missing Dependency Information]
+
+[Package|标准安装软件包|Out-of-Date Dependency Information]
+
+[Package|标准安装软件包|Files Added]
+
+[Package|标准安装软件包|Files Removed]
+
+[Package|标准安装软件包|Files In Project]
+C:\Program Files\Microsoft Visual Studio\VB98\Dota.exe=Yes
+C:\WINDOWS\system32\msvbvm60.dll=Yes
+C:\WINDOWS\system32\oleaut32.dll=Yes
+C:\WINDOWS\system32\olepro32.dll=Yes
+C:\WINDOWS\system32\asycfilt.dll=Yes
+C:\WINDOWS\system32\stdole2.tlb=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\WINDOWS\system32\VB6CHS.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\WINDOWS\system32\VB6STKIT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+
+[Package|标准安装软件包|Configure Registry Files]
+Applicable=No
+
+[Package|标准安装软件包|Configure Remote Servers]
+Applicable=No
+
+[Package|标准安装软件包|Install Locations]
+C:\Program Files\Microsoft Visual Studio\VB98\Dota.exe=$(AppPath)
+C:\WINDOWS\system32\msvbvm60.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\oleaut32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\olepro32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\asycfilt.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\stdole2.tlb=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\system32\VB6CHS.DLL=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINDOWS\system32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+
+[Package|标准安装软件包|Configure Shared Files]
+Applicable=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Dota.exe=No
+
+[Package|标准安装软件包|Distribution]
+Type=single
+Size=
+Title=DOTA模拟器beta0.1
+
+[Package|标准安装软件包|IconGroups]
+Group0=DOTA模拟器beta0.1
+PrivateGroup0=-1
+Parent0=$(Programs)
+
+[Package|标准安装软件包|DOTA模拟器beta0.1]
+Icon1=Dota.exe
+Title1=DOTA模拟器beta0.1
+StartIn1=$(AppPath)
+Key1=Icon1
+
+[Package|标准安装软件包|Package]
+PackageFolder=C:\新建文件夹
+ProjectFolder=C:\Program Files\Microsoft Visual Studio\VB98
+ServerSideCab=
+File1=C:\新建文件夹\setup.exe
+File2=C:\新建文件夹\Setup.Lst
+File3=C:\新建文件夹\Dota.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz
+
+
+[Package|DOTA模拟器|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=C:\DOTA模拟器
+
+[Package|DOTA模拟器|Configure DAO ISAMs]
+Applicable=No
+
+[Package|DOTA模拟器|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|DOTA模拟器|Files Found]
+
+[Package|DOTA模拟器|Files Released]
+
+[Package|DOTA模拟器|Missing Dependency Information]
+
+[Package|DOTA模拟器|Out-of-Date Dependency Information]
+
+[Package|DOTA模拟器|Files Added]
+
+[Package|DOTA模拟器|Files Removed]
+
+[Package|DOTA模拟器|Files In Project]
+C:\Program Files\Microsoft Visual Studio\VB98\Dota.exe=Yes
+C:\WINDOWS\system32\msvbvm60.dll=Yes
+C:\WINDOWS\system32\oleaut32.dll=Yes
+C:\WINDOWS\system32\olepro32.dll=Yes
+C:\WINDOWS\system32\asycfilt.dll=Yes
+C:\WINDOWS\system32\stdole2.tlb=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\WINDOWS\system32\VB6CHS.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\WINDOWS\system32\VB6STKIT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+C:\WINDOWS\system32\dao360.dll=Yes
+C:\WINDOWS\system32\msjet40.dll=Yes
+C:\WINDOWS\system32\msjter40.dll=Yes
+C:\WINDOWS\system32\msjint40.dll=Yes
+C:\WINDOWS\system32\vbajet32.dll=Yes
+C:\WINDOWS\system32\expsrv.dll=Yes
+C:\WINDOWS\system32\mswstr10.dll=Yes
+C:\WINDOWS\system32\mswdat10.dll=Yes
+C:\WINDOWS\system32\msrd2x40.dll=Yes
+C:\WINDOWS\system32\msrd3x40.dll=Yes
+C:\WINDOWS\system32\msrepl40.dll=Yes
+C:\WINDOWS\system32\msjtes40.dll=Yes
+C:\WINDOWS\system32\VB5DB.DLL=Yes
+
+[Package|DOTA模拟器|Configure Registry Files]
+Applicable=No
+
+[Package|DOTA模拟器|Configure Remote Servers]
+Applicable=No
+
+[Package|DOTA模拟器|Install Locations]
+C:\Program Files\Microsoft Visual Studio\VB98\Dota.exe=$(AppPath)
+C:\WINDOWS\system32\msvbvm60.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\oleaut32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\olepro32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\asycfilt.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\stdole2.tlb=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\system32\VB6CHS.DLL=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINDOWS\system32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+C:\WINDOWS\system32\dao360.dll=$(MSDAOPath)
+C:\WINDOWS\system32\msjet40.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\msjter40.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\msjint40.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\vbajet32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\expsrv.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\mswstr10.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\mswdat10.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\msrd2x40.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\msrd3x40.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\msrepl40.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\msjtes40.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\VB5DB.DLL=$(WinSysPath)
+
+[Package|DOTA模拟器|Configure Shared Files]
+Applicable=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Dota.exe=No
+
+[Package|DOTA模拟器|Distribution]
+Type=single
+Size=
+Title=DOTA模拟器beta0.1
+
+[Package|DOTA模拟器|Package]
+PackageFolder=C:\DOTA模拟器
+ProjectFolder=C:\Program Files\Microsoft Visual Studio\VB98
+ServerSideCab=
+File1=C:\DOTA模拟器\setup.exe
+File2=C:\DOTA模拟器\Setup.Lst
+File3=C:\DOTA模拟器\Dota.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz
+
+[Package|DOTA模拟器|IconGroups]
+Group0=DOTA模拟器beta0.1
+PrivateGroup0=-1
+Parent0=$(Programs)
+
+[Package|DOTA模拟器|DOTA模拟器beta0.1]
+Icon1=Dota.exe
+Title1=DOTA模拟器beta0.1
+StartIn1=$(AppPath)
+Key1=Icon1
+
+
+[Package|DOTA英雄战斗模拟器|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=d:\电脑\DOTA战斗模拟\DOTA模拟器
+
+[Package|DOTA英雄战斗模拟器|Configure DAO ISAMs]
+Applicable=No
+
+[Package|DOTA英雄战斗模拟器|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|DOTA英雄战斗模拟器|Files Found]
+
+[Package|DOTA英雄战斗模拟器|Files Released]
+
+[Package|DOTA英雄战斗模拟器|Missing Dependency Information]
+
+[Package|DOTA英雄战斗模拟器|Out-of-Date Dependency Information]
+
+[Package|DOTA英雄战斗模拟器|Files Added]
+
+[Package|DOTA英雄战斗模拟器|Files Removed]
+
+[Package|DOTA英雄战斗模拟器|Files In Project]
+C:\Program Files\Microsoft Visual Studio\VB98\Dota.exe=Yes
+C:\WINDOWS\system32\msvbvm60.dll=Yes
+C:\WINDOWS\system32\oleaut32.dll=Yes
+C:\WINDOWS\system32\olepro32.dll=Yes
+C:\WINDOWS\system32\asycfilt.dll=Yes
+C:\WINDOWS\system32\stdole2.tlb=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\WINDOWS\system32\VB6CHS.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\WINDOWS\system32\VB6STKIT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+C:\WINDOWS\system32\msjet40.dll=Yes
+C:\WINDOWS\system32\msjter40.dll=Yes
+C:\WINDOWS\system32\msjint40.dll=Yes
+C:\WINDOWS\system32\vbajet32.dll=Yes
+C:\WINDOWS\system32\expsrv.dll=Yes
+C:\WINDOWS\system32\mswstr10.dll=Yes
+C:\WINDOWS\system32\mswdat10.dll=Yes
+C:\WINDOWS\system32\msrd2x40.dll=Yes
+C:\WINDOWS\system32\msrd3x40.dll=Yes
+C:\WINDOWS\system32\msrepl40.dll=Yes
+C:\WINDOWS\system32\msjtes40.dll=Yes
+C:\WINDOWS\system32\VB5DB.DLL=Yes
+C:\Program Files\Common Files\Microsoft Shared\DAO\dao360.dll=Yes
+
+[Package|DOTA英雄战斗模拟器|Configure Registry Files]
+Applicable=No
+
+[Package|DOTA英雄战斗模拟器|Configure Remote Servers]
+Applicable=No
+
+[Package|DOTA英雄战斗模拟器|Install Locations]
+C:\Program Files\Microsoft Visual Studio\VB98\Dota.exe=$(AppPath)
+C:\WINDOWS\system32\msvbvm60.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\oleaut32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\olepro32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\asycfilt.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\stdole2.tlb=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\system32\VB6CHS.DLL=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINDOWS\system32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+C:\WINDOWS\system32\dao360.dll=$(MSDAOPath)
+C:\WINDOWS\system32\msjet40.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\msjter40.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\msjint40.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\vbajet32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\expsrv.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\mswstr10.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\mswdat10.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\msrd2x40.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\msrd3x40.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\msrepl40.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\msjtes40.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\VB5DB.DLL=$(WinSysPath)
+C:\Program Files\Common Files\Microsoft Shared\DAO\dao360.dll=$(MSDAOPath)
+
+[Package|DOTA英雄战斗模拟器|Configure Shared Files]
+Applicable=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Dota.exe=No
+
+[Package|DOTA英雄战斗模拟器|Distribution]
+Type=single
+Size=
+Title=DOTA模拟器正式版
+
+[Package|DOTA英雄战斗模拟器|IconGroups]
+Group0=DOTA模拟器
+PrivateGroup0=0
+Parent0=$(Programs)
+
+[Package|DOTA英雄战斗模拟器|DOTA模拟器]
+Icon1=Dota.exe
+Title1=DOTA模拟器正式版v0.3
+StartIn1=$(AppPath)
+Key1=Icon1
+
+[Package|DOTA英雄战斗模拟器|Package]
+PackageFolder=d:\电脑\DOTA战斗模拟\DOTA模拟器
+ProjectFolder=C:\Program Files\Microsoft Visual Studio\VB98
+ServerSideCab=
+File1=d:\电脑\DOTA战斗模拟\DOTA模拟器\setup.exe
+File2=d:\电脑\DOTA战斗模拟\DOTA模拟器\Setup.Lst
+File3=d:\电脑\DOTA战斗模拟\DOTA模拟器\Dota.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz

@@ -1,0 +1,23 @@
+//#4 check keyboard to r3
+CHK 3,0
+
+//jump to 4
+JZ 3,0,4
+
+//#6 input to R0 
+IN 0,0
+
+//output to printer
+OUT 0,1
+
+//check keyboard to r3
+CHK 3,0
+
+//jump to 6
+JNE 3,0,6
+
+//R0=instant 13
+LDA 0,0,13
+
+//output R0
+OUT 0,1

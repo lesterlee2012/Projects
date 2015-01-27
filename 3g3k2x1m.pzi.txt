@@ -1,0 +1,206 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch is up-to-date with 'origin/master'.
+#
+# Changes to be committed:
+#	new file:   CISC_Sim/.classpath
+#	new file:   CISC_Sim/.project
+#	new file:   CISC_Sim/1.xps
+#	new file:   CISC_Sim/bin/simulator/Registers.class
+#	new file:   CISC_Sim/bin/simulator/SimpleMemory.class
+#	new file:   CISC_Sim/bin/simulator/Simulator$1.class
+#	new file:   CISC_Sim/bin/simulator/Simulator$2.class
+#	new file:   CISC_Sim/bin/simulator/Simulator$3.class
+#	new file:   CISC_Sim/bin/simulator/Simulator$4.class
+#	new file:   CISC_Sim/bin/simulator/Simulator$5.class
+#	new file:   CISC_Sim/bin/simulator/Simulator$6.class
+#	new file:   CISC_Sim/bin/simulator/Simulator$7.class
+#	new file:   CISC_Sim/bin/simulator/Simulator$8.class
+#	new file:   CISC_Sim/bin/simulator/Simulator$9.class
+#	new file:   CISC_Sim/bin/simulator/Simulator.class
+#	new file:   CISC_Sim/bin/simulator/some notes.txt
+#	new file:   CISC_Sim/build.xml
+#	new file:   CISC_Sim/build/built-jar.properties
+#	new file:   CISC_Sim/build/classes/assembly code/I&O.txt
+#	new file:   CISC_Sim/build/classes/assembly code/IPL.txt
+#	new file:   CISC_Sim/build/classes/assembly code/Program1.txt
+#	new file:   CISC_Sim/build/classes/assembly code/Program2.txt
+#	new file:   CISC_Sim/build/classes/simulator/Assembler.class
+#	new file:   CISC_Sim/build/classes/simulator/Keyboard.class
+#	new file:   CISC_Sim/build/classes/simulator/Printer.class
+#	new file:   CISC_Sim/build/classes/simulator/Processor.class
+#	new file:   CISC_Sim/build/classes/simulator/Program1.txt
+#	new file:   CISC_Sim/build/classes/simulator/Program2.txt
+#	new file:   CISC_Sim/build/classes/simulator/SimpleMemory.class
+#	new file:   CISC_Sim/build/classes/simulator/SimulatorGUI$1.class
+#	new file:   CISC_Sim/build/classes/simulator/SimulatorGUI$10.class
+#	new file:   CISC_Sim/build/classes/simulator/SimulatorGUI$11.class
+#	new file:   CISC_Sim/build/classes/simulator/SimulatorGUI$12.class
+#	new file:   CISC_Sim/build/classes/simulator/SimulatorGUI$13.class
+#	new file:   CISC_Sim/build/classes/simulator/SimulatorGUI$14.class
+#	new file:   CISC_Sim/build/classes/simulator/SimulatorGUI$15.class
+#	new file:   CISC_Sim/build/classes/simulator/SimulatorGUI$16.class
+#	new file:   CISC_Sim/build/classes/simulator/SimulatorGUI$17.class
+#	new file:   CISC_Sim/build/classes/simulator/SimulatorGUI$2.class
+#	new file:   CISC_Sim/build/classes/simulator/SimulatorGUI$3.class
+#	new file:   CISC_Sim/build/classes/simulator/SimulatorGUI$4.class
+#	new file:   CISC_Sim/build/classes/simulator/SimulatorGUI$5.class
+#	new file:   CISC_Sim/build/classes/simulator/SimulatorGUI$6.class
+#	new file:   CISC_Sim/build/classes/simulator/SimulatorGUI$7.class
+#	new file:   CISC_Sim/build/classes/simulator/SimulatorGUI$8.class
+#	new file:   CISC_Sim/build/classes/simulator/SimulatorGUI$9.class
+#	new file:   CISC_Sim/build/classes/simulator/SimulatorGUI.class
+#	new file:   CISC_Sim/build/classes/simulator/Updater.class
+#	new file:   CISC_Sim/cooperation_SRC/src/.classpath
+#	new file:   CISC_Sim/cooperation_SRC/src/.project
+#	new file:   CISC_Sim/cooperation_SRC/src/.settings/org.eclipse.core.resources.prefs
+#	new file:   CISC_Sim/cooperation_SRC/src/simulator/Assembler.java
+#	new file:   CISC_Sim/cooperation_SRC/src/simulator/Example (Xiao Xiao's conflicted copy 2013-12-02).txt
+#	new file:   CISC_Sim/cooperation_SRC/src/simulator/Example.txt
+#	new file:   CISC_Sim/cooperation_SRC/src/simulator/Keyboard.java
+#	new file:   CISC_Sim/cooperation_SRC/src/simulator/Printer.java
+#	new file:   CISC_Sim/cooperation_SRC/src/simulator/Processor.java
+#	new file:   CISC_Sim/cooperation_SRC/src/simulator/Processor.java.backup
+#	new file:   CISC_Sim/cooperation_SRC/src/simulator/Program1.txt
+#	new file:   CISC_Sim/cooperation_SRC/src/simulator/Program2.txt
+#	new file:   CISC_Sim/cooperation_SRC/src/simulator/SimpleMemory.java
+#	new file:   CISC_Sim/cooperation_SRC/src/simulator/SimulatorGUI.form
+#	new file:   CISC_Sim/cooperation_SRC/src/simulator/SimulatorGUI.java
+#	new file:   CISC_Sim/cooperation_SRC/src/simulator/Updater.java
+#	new file:   CISC_Sim/cooperation_SRC/src/simulator/User Guide Part IV.docx
+#	new file:   CISC_Sim/cooperation_SRC/src/simulator/fixed.txt
+#	new file:   CISC_Sim/cooperation_SRC/src/simulator/float.txt
+#	new file:   CISC_Sim/cooperation_SRC/src/simulator/vector.txt
+#	new file:   CISC_Sim/dist/README.TXT
+#	new file:   CISC_Sim/dist/Simulator.jar
+#	new file:   CISC_Sim/manifest.mf
+#	new file:   CISC_Sim/nbproject/build-impl.xml
+#	new file:   CISC_Sim/nbproject/genfiles.properties
+#	new file:   CISC_Sim/nbproject/private/config.properties
+#	new file:   CISC_Sim/nbproject/private/private.properties
+#	new file:   CISC_Sim/nbproject/private/private.xml
+#	new file:   CISC_Sim/nbproject/project.properties
+#	new file:   CISC_Sim/nbproject/project.xml
+#	new file:   CISC_Sim/src/assembly code/I&O.txt
+#	new file:   CISC_Sim/src/assembly code/IPL.txt
+#	new file:   CISC_Sim/src/assembly code/fixed.txt
+#	new file:   CISC_Sim/src/assembly code/float.txt
+#	new file:   CISC_Sim/src/assembly code/program1.txt
+#	new file:   CISC_Sim/src/assembly code/program2.txt
+#	new file:   CISC_Sim/src/assembly code/vector.txt
+#	new file:   CISC_Sim/src/simulator/Assembler.java
+#	new file:   CISC_Sim/src/simulator/Keyboard.java
+#	new file:   CISC_Sim/src/simulator/Printer.java
+#	new file:   CISC_Sim/src/simulator/Processor.java
+#	new file:   CISC_Sim/src/simulator/SimpleMemory.java
+#	new file:   CISC_Sim/src/simulator/SimulatorGUI.form
+#	new file:   CISC_Sim/src/simulator/SimulatorGUI.java
+#	new file:   CISC_Sim/src/simulator/Updater.java
+#	new file:   CISC_Sim/src/simulator/User Guide Part IV.docx
+#	new file:   CISC_Sim/test/simulator/SimulatorTest.java
+#	new file:   Calculator/build.xml
+#	new file:   Calculator/build/classes/.netbeans_automatic_build
+#	new file:   Calculator/build/classes/.netbeans_update_resources
+#	new file:   Calculator/build/classes/calculator/AboutFrame$1.class
+#	new file:   Calculator/build/classes/calculator/AboutFrame.class
+#	new file:   Calculator/build/classes/calculator/AboutFrame.form
+#	new file:   Calculator/build/classes/calculator/Calculator$1.class
+#	new file:   Calculator/build/classes/calculator/Calculator$10.class
+#	new file:   Calculator/build/classes/calculator/Calculator$11.class
+#	new file:   Calculator/build/classes/calculator/Calculator$12.class
+#	new file:   Calculator/build/classes/calculator/Calculator$13.class
+#	new file:   Calculator/build/classes/calculator/Calculator$14.class
+#	new file:   Calculator/build/classes/calculator/Calculator$15.class
+#	new file:   Calculator/build/classes/calculator/Calculator$16.class
+#	new file:   Calculator/build/classes/calculator/Calculator$17.class
+#	new file:   Calculator/build/classes/calculator/Calculator$18.class
+#	new file:   Calculator/build/classes/calculator/Calculator$2.class
+#	new file:   Calculator/build/classes/calculator/Calculator$3.class
+#	new file:   Calculator/build/classes/calculator/Calculator$4.class
+#	new file:   Calculator/build/classes/calculator/Calculator$5.class
+#	new file:   Calculator/build/classes/calculator/Calculator$6.class
+#	new file:   Calculator/build/classes/calculator/Calculator$7.class
+#	new file:   Calculator/build/classes/calculator/Calculator$8.class
+#	new file:   Calculator/build/classes/calculator/Calculator$9.class
+#	new file:   Calculator/build/classes/calculator/Calculator.class
+#	new file:   Calculator/build/classes/calculator/Calculator.form
+#	new file:   Calculator/build/classes/calculator/aboutImg.jpg
+#	new file:   Calculator/manifest.mf
+#	new file:   Calculator/nbproject/build-impl.xml
+#	new file:   Calculator/nbproject/genfiles.properties
+#	new file:   Calculator/nbproject/private/private.properties
+#	new file:   Calculator/nbproject/private/private.xml
+#	new file:   Calculator/nbproject/project.properties
+#	new file:   Calculator/nbproject/project.xml
+#	new file:   Calculator/src/calculator/AboutFrame.form
+#	new file:   Calculator/src/calculator/AboutFrame.java
+#	new file:   Calculator/src/calculator/Calculator.form
+#	new file:   Calculator/src/calculator/Calculator.java
+#	new file:   Calculator/src/calculator/aboutImg.jpg
+#	new file:   DES_Sim/build.xml
+#	new file:   DES_Sim/build/built-jar.properties
+#	new file:   DES_Sim/build/classes/.netbeans_automatic_build
+#	new file:   DES_Sim/build/classes/.netbeans_update_resources
+#	new file:   DES_Sim/build/classes/des_sim/DES.class
+#	new file:   DES_Sim/build/classes/des_sim/DES_MX.class
+#	new file:   DES_Sim/build/classes/des_sim/GUI$1.class
+#	new file:   DES_Sim/build/classes/des_sim/GUI$10.class
+#	new file:   DES_Sim/build/classes/des_sim/GUI$2.class
+#	new file:   DES_Sim/build/classes/des_sim/GUI$3.class
+#	new file:   DES_Sim/build/classes/des_sim/GUI$4.class
+#	new file:   DES_Sim/build/classes/des_sim/GUI$5.class
+#	new file:   DES_Sim/build/classes/des_sim/GUI$6.class
+#	new file:   DES_Sim/build/classes/des_sim/GUI$7.class
+#	new file:   DES_Sim/build/classes/des_sim/GUI$8.class
+#	new file:   DES_Sim/build/classes/des_sim/GUI$9.class
+#	new file:   DES_Sim/build/classes/des_sim/GUI.class
+#	new file:   DES_Sim/build/classes/des_sim/GUI.form
+#	new file:   DES_Sim/build/classes/des_sim/OpModes.class
+#	new file:   DES_Sim/build/classes/des_sim/TextBlock.class
+#	new file:   DES_Sim/dist/DES_Sim.jar
+#	new file:   DES_Sim/dist/README.TXT
+#	new file:   DES_Sim/manifest.mf
+#	new file:   DES_Sim/nbproject/build-impl.xml
+#	new file:   DES_Sim/nbproject/genfiles.properties
+#	new file:   DES_Sim/nbproject/private/config.properties
+#	new file:   DES_Sim/nbproject/private/private.properties
+#	new file:   DES_Sim/nbproject/private/private.xml
+#	new file:   DES_Sim/nbproject/project.properties
+#	new file:   DES_Sim/nbproject/project.xml
+#	new file:   DES_Sim/src/des_sim/DES.java
+#	new file:   DES_Sim/src/des_sim/DES_MX.java
+#	new file:   DES_Sim/src/des_sim/GUI.form
+#	new file:   DES_Sim/src/des_sim/GUI.java
+#	new file:   DES_Sim/src/des_sim/OpModes.java
+#	new file:   DES_Sim/src/des_sim/TextBlock.java
+#	new file:   DotaSim/Dota.PDM
+#	new file:   DotaSim/Dota.exe
+#	new file:   DotaSim/Dota.frm
+#	new file:   DotaSim/Dota.frx
+#	new file:   DotaSim/Dota.vbp
+#	new file:   DotaSim/Dota.vbw
+#	new file:   Httpserver/.idea/.name
+#	new file:   Httpserver/.idea/Httpserver.iml
+#	new file:   Httpserver/.idea/encodings.xml
+#	new file:   Httpserver/.idea/misc.xml
+#	new file:   Httpserver/.idea/modules.xml
+#	new file:   Httpserver/.idea/other.xml
+#	new file:   Httpserver/.idea/scopes/scope_settings.xml
+#	new file:   Httpserver/.idea/testrunner.xml
+#	new file:   Httpserver/.idea/vcs.xml
+#	new file:   Httpserver/.idea/workspace.xml
+#	new file:   Httpserver/Counter.py
+#	new file:   Httpserver/Counter.pyc
+#	new file:   Httpserver/HTTPClient.py
+#	new file:   Httpserver/HTTPServer.py
+#	new file:   Httpserver/Webpage/Welcome.html
+#	new file:   Httpserver/Webpage/Welcome.jpg
+#	new file:   IntelligentElevator/Form1.frm
+#	new file:   IntelligentElevator/Form1.frx
+#	new file:   IntelligentElevator/MSSCCPRJ.SCC
+#	new file:   "IntelligentElevator/\345\267\245\347\250\2131.vbp"
+#	new file:   "IntelligentElevator/\345\267\245\347\250\2131.vbw"
+#
+

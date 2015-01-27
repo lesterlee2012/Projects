@@ -1,0 +1,72 @@
+//--------------------vector add/substract--------------------
+//----------table
+//put 1034 into 1030 (1024 + 6), put 1054 into 1031 (1024 + 7)
+//1034: 000001|000000|1010
+//1054: 000001|000001|1110
+AIR 0,1
+SRC 0,10,1,1
+AIR 0,10
+STR 0,1,6
+AND 0,3
+
+AIR 0,1
+SRC 0,10,1,1
+AIR 1,1
+SRC 1,4,1,1
+ORR 0,1
+AIR 0,14
+STR 0,1,7
+AND 0,3
+AND 1,3
+AND 2,3
+
+//----------set first vector
+//put 1034 to 1053 as 2,2,2,2,2,2,2,2,2,2
+//0|10000000|0000000,0000000000000000
+AIR 0,16
+SRC 0,10,1,1
+STR 0,1,10
+STR 0,1,12
+STR 0,1,14
+STR 0,1,16
+STR 0,1,18
+STR 0,1,20
+STR 0,1,22
+STR 0,1,24
+STR 0,1,26
+STR 0,1,28
+AND 0,3
+
+//----------set second vector
+//put 1054 to 1073 as 1,1,1,1,1,1,1,1,1,1
+//0|01111111|0000000,0000000000000000
+AIR 0,15
+SRC 0,10,1,1
+AIR 1,56
+SRC 1,4,1,1
+ORR 0,1
+STR 0,1,30
+STR 2,1,32
+STR 2,1,34
+STR 2,1,36
+STR 2,1,38
+STR 2,1,40
+STR 2,1,42
+STR 2,1,44
+STR 2,1,46
+STR 2,1,48
+AND 0,3
+AND 1,3
+
+//add two vector, get 3,3,3,3,3,3,3,3,3,3 at first place
+//0100000001000000,0000000000000000
+AIR 0,10
+VADD 0,1,6
+//substract two vector, get 2,2,2,2,2,2,2,2,2,2 again at first place
+VSUB 0,1,6
+//clear R0,R1,R2
+AND 0,3
+AND 1,3
+AND 2,3
+//show finished
+//AIR 0,1

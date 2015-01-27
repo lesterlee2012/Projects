@@ -1,0 +1,687 @@
+//#variables declaration
+//create pointer1 (stored in 1024; initial value 1024+2)
+//#4 set m1024 (pointer1) as 1024 (value of X0)
+STX 1,0
+//load R1 from m1024 (initial value 1024)
+LDR 1,1,0
+//R1=1026
+AIR 1,2
+//refresh pointer1  
+STR 1,1,0
+
+
+//create pointer2 (stored in 1025; initial value 1024+23)
+//set m1025 (pointer2) as 1024 (value of X0)
+STX 1,1
+//load R1 from m1025 (initial value 1024)
+LDR 1,1,1
+//R1=1047
+AIR 1,23
+//refresh pointer2 
+STR 1,1,1
+
+
+//create and set step counter (SC initial value 20)
+//R3=20
+LDA 3,0,20
+
+//#loop: input 20 numbers
+
+//printout "please input a number"="112 108 101 97 115 101 32 105 110 112 117 116 32 97 32 110 117 109 98 101 114 13"
+//#13 r0=56
+LDA 0,0,56
+//r0=112
+SRC 0,1,1,0
+//r0 to printer
+OUT 0,1
+//r0=108
+SIR 0,4
+//r0 to printer
+OUT 0,1
+//r0=101
+SIR 0,7
+//r0 to printer
+OUT 0,1
+//r0=97
+SIR 0,4
+//r0 to printer
+OUT 0,1
+//r0=115
+AIR 0,18
+//r0 to printer
+OUT 0,1
+//r0=101
+SIR 0,14
+//r0 to printer
+OUT 0,1
+//r1=32 (space)
+LDA 1,0,32
+//r1 to printer (space)
+OUT 1,1
+//r0=105
+AIR 0,4
+//r0 to printer
+OUT 0,1
+// r0=110
+AIR 0,5
+//r0 to printer
+OUT 0,1
+// r0=112
+AIR 0,2
+//r0 to printer   
+OUT 0,1
+//r0=117
+AIR 0,5
+//r0 to printer
+OUT 0,1
+// r0=116
+SIR 0,1
+// r0 to printer
+OUT 0,1
+//  r1 to printer (space)
+OUT 1,1
+//r0=97
+SIR 0,19
+//r0 to printer 
+OUT 0,1
+// r1 to printer (space)
+OUT 1,1
+// r0=110
+AIR 0,13
+//r0 to printer
+OUT 0,1
+// r0=117
+AIR 0,7
+//r0 to printer
+OUT 0,1
+//r0=109
+SIR 0,8
+// r0 to printer
+OUT 0,1
+//r0=98
+SIR 0,11
+//r0 to printer 
+OUT 0,1
+//r0=101
+AIR 0,3
+//r0 to printer 
+OUT 0,1
+//r0=114
+AIR 0,13
+//r0 to printer 
+OUT 0,1
+//r1=13 (return)
+SIR 1,19
+//r1 to printer (return)
+OUT 1,1
+
+//#input a digit and store in c(pointer1) 
+//check input
+//#56 r0=KSR
+CHK 0,0
+//if KSR=0 jump to 56
+JZ 0,0,56
+
+
+//c(pointer1)*=10
+// #58 r0=c(pointer1)
+LDR 0,1,0,1
+//r2=10
+LDA 2,0,10
+//r1=c(pointer1)*10
+MUL 0,2
+// c(pointer1)=r1 
+STR 1,1,0,1
+
+
+//r0 gets real digit
+//load r0 from input
+IN 0,0
+// output to printer buffer
+OUT 0,1
+// r0=r0-48 (get real number; not ASCII code)
+SIR 0,48
+
+
+//c(pointer1)+=r0
+//r0+=c(pointer1)
+AMR 0,1,0,1
+//  store number into c(pointer1)
+STR 0,1,0,1
+
+//  r0=KSR
+CHK 0,0
+//if KSR=1 jump to 58 (load next digit)
+JNE 0,0,58
+
+
+//pointer1++
+// r0=pointer1
+LDR 0,1,0
+//   #70 r0++
+AIR 0,1
+//    pointer1=r0
+STR 0,1,0
+
+
+//r0=return '\r'
+LDA 0,0,13
+//  printout the number (release printer buffer)
+OUT 0,1
+
+
+// Jump to 13 if SC!=0 (input again)
+SOB 3,0,13
+
+
+//# input the number for comparison
+//printout "input a number for comparison" 
+//"105 110 112 117 116 32 97 32 110 117 109 98 101 114 32 102 111 114 32 99 111 109 112 97 114 105 115 111 110 13"
+//r0=42
+LDA 0,0,42
+//r0=105
+AIR 0,63
+//r0 to printer
+OUT 0,1
+//r0=110
+AIR 0,5
+// r0 to printer
+OUT 0,1
+//#80 r0=112
+AIR 0,2
+// r0 to printer
+OUT 0,1
+//r0=117
+AIR 0,5
+//r0 to printer
+OUT 0,1
+//r0=116
+SIR 0,1
+//  r0 to printer
+OUT 0,1
+//r1=32 (space)
+LDA 1,0,32
+//  r1 to printer (space)
+OUT 1,1
+// r0=97
+SIR 0,19
+//  r0 to printer
+OUT 0,1
+// #90 r1 to printer (space)
+OUT 1,1
+// r0=110
+AIR 0,13
+// r0 to printer
+OUT 0,1
+//   r0=117
+AIR 0,7
+//  r0 to printer
+OUT 0,1
+//  r0=109
+SIR 0,8
+// r0 to printer
+OUT 0,1
+//r0=98
+SIR 0,11
+// r0 to printer
+OUT 0,1
+//  r0=101
+AIR 0,3
+//  #100 r0 to printer
+OUT 0,1
+// r0=114
+AIR 0,13
+//  r0 to printer
+OUT 0,1
+//  r1 to printer (space)
+OUT 1,1
+//  r0=102
+SIR 0,12
+// r0 to printer
+OUT 0,1
+//   r0=111
+AIR 0,9
+//  r0 to printer
+OUT 0,1
+//  r0=114
+AIR 0,3
+// r0 to printer
+OUT 0,1
+//  #110 r1 to printer (space)
+OUT 1,1
+// r0=99
+SIR 0,15
+// r0 to printer
+OUT 0,1
+//  r0=111
+AIR 0,12
+//r0 to printer
+OUT 0,1
+// r0=109
+SIR 0,2
+//  r0 to printer
+OUT 0,1
+// r0=112
+AIR 0,3
+//  r0 to printer
+OUT 0,1
+//  r0=97
+SIR 0,15
+//   #120 r0 to printer
+OUT 0,1
+//r0=114
+AIR 0,17
+//  r0 to printer
+OUT 0,1
+//   r0=105
+SIR 0,9
+// r0 to printer
+OUT 0,1
+//   r0=115
+AIR 0,10
+//   r0 to printer
+OUT 0,1
+// r0=111
+SIR 0,4
+// r0 to printer
+OUT 0,1
+// r0=110
+SIR 0,1
+//  #130 r0 to printer
+OUT 0,1
+//  r1=13 (return)
+SIR 1,19
+//  r1 to printer (return)
+OUT 1,1
+
+
+//#receive a number to be compared
+//set x0 as 128 (initial m3=64)
+//r0=64
+LDR 0,0,3
+//shift R0 left by 1
+SRC 0,1,1,0
+// m3=128
+STR 0,0,3
+// X0=128
+LDX 0,3
+
+
+//#input a digit and store in c(pointer1) 
+//check input
+//#137 r0=KSR
+CHK 0,0
+//if KSR=0 jump to 137 (128+9)
+JZ 0,1,9
+
+
+//#set x0=1024
+// #139 X0=1024
+LDX 0,2
+
+
+//#c(pointer1)*=10
+// #140 r0=c(pointer1)
+LDR 0,1,0,1
+//    r2=10
+LDA 2,0,10
+// r1=c(pointer1)*10
+MUL 0,2
+//   c(pointer1)=r1 
+STR 1,1,0,1
+
+
+//#r0 gets real digit
+//  load r0 from input
+IN 0,0
+// output to printer buffer
+OUT 0,1
+//r0=r0-48 (get real number; not ASCII code)
+SIR 0,48
+
+
+//#c(pointer1)+=r0
+// r0+=c(pointer1)
+AMR 0,1,0,1
+// store number into c(pointer1) (now pointer 1=1024+22)
+STR 0,1,0,1
+
+
+//  X0=128
+LDX 0,3
+
+
+//  #150 r0=KSR
+CHK 0,0
+//  if KSR=1 jump to 139=128+11 (load next digit)
+JNE 0,1,11
+
+
+// r0=return \13
+LDA 0,0,13
+//printout the number (release printer buffer)
+OUT 0,1
+
+
+
+//##############recover point#################
+
+
+//#ready for next loop
+//X0=1024
+LDX 0,2
+
+//#reset pointer1=1024+2
+//   r0=pointer1=1024+22
+LDR 0,1,0
+//   r0-=20
+SIR 0,20
+//  pointer1=r0=1024+2 
+STR 0,1,0
+
+
+//set steps
+// set value of R3 as 20 
+LDA 3,0,20
+
+//# loop: calculate the difference of each pair of numbers
+//  #159 X0=1024
+LDX 0,2
+
+
+//#r0=c(pointer1)
+//load r0 from c(pointer1)
+LDR 0,1,0,1
+
+
+//#store the differences from 1024+ 23 to 42 if >=0
+// R0-=c(1024+22) //1024+22 stores 21st input number
+SMR 0,1,22
+// X0=128
+LDX 0,3
+//jump to #166=128+38 if R0>=0
+JGE 0,1,38
+//#opposite number (right guaranteed)
+//R0--
+SIR 0,1
+// NOT c(R0)
+NOT 0
+//  #166 X0=1024
+LDX 0,2
+//store R0 in c(pointer2)
+STR 0,1,1,1
+
+
+//#pointer1++
+//r0=pointer1
+LDR 0,1,0
+// r0++
+AIR 0,1
+// #170 pointer1=r0
+STR 0,1,0
+
+
+//#pointer2++
+//  r0=pointer2
+LDR 0,1,1
+//r0++
+AIR 0,1
+// pointer2=r0
+STR 0,1,1
+
+
+//#loop exit
+// X0=128
+LDX 0,3
+//jump to #159=128+31 if R3>0 after subtract one
+SOB 3,1,31   
+
+
+
+//##############recover point#################
+
+
+//#loop: compare 20 differences
+//set pointer1 to first difference 1024+23
+//   X0=1024
+LDX 0,2
+//r0=pointer1=1024+22
+LDR 0,1,0
+//  r0++
+AIR 0,1
+// pointer1=r0 
+STR 0,1,0
+
+
+//#set pointer2 to second difference 1024+24
+// #180 r0=pointer2
+LDR 0,1,1
+// r0-=19
+SIR 0,19
+// pointer2=r0 
+STR 0,1,1
+
+//# set steps
+//set value of R3 as 19 
+LDA 3,0,19
+
+
+//#m3=180
+//  r0=128
+LDR 0,0,3
+//  r0=180
+AIR 0,52
+//  m3=180
+STR 0,0,3
+
+
+
+
+//#comparison loop
+//#187 X0=1024
+LDX 0,2
+// load R0 from c(pointer1)
+LDR 0,1,0,1
+//R0-=c(pointer2)
+SMR 0,1,1,1
+
+
+//#convert to opposite number
+// R0--
+SIR 0,1
+// NOT c(R0)
+NOT 0
+//X0=180
+LDX 0,3
+//jump to #197=180+17 if R0>=0 
+JGE 0,1,17
+
+
+
+//#set pointer1=pointer2
+//   X0=1024
+LDX 0,2
+// r0=pointer2
+LDR 0,1,1
+//   pointer1=r0 
+STR 0,1,0
+
+
+//pointer2++
+// #197 X0=1024
+LDX 0,2
+//r0=pointer2
+LDR 0,1,1
+// r0++
+AIR 0,1
+//  pointer2=r0
+STR 0,1,1
+
+
+//#loop exit
+//  X0=180
+LDX 0,3
+//jump to #187=180+7 if R3>0 after subtract one
+SOB 3,1,7
+
+
+//#set pointer1 back 21
+// x0=1024
+LDX 0,2
+// r0=pointer1
+LDR 0,1,0
+// r0-=21
+SIR 0,21
+// pointer1=r0 
+STR 0,1,0
+
+
+//##############recover point#################
+
+
+//#printout "result is"
+//#"114 101 115 117 108 116 32 105 115 13"
+// r0=57
+LDA 0,0,57
+//  r0=114
+SRC 0,1,1,0
+// r0 to printer
+OUT 0,1
+//  #210 r0=101
+SIR 0,13
+//r0 to printer
+OUT 0,1
+//   r0=115
+AIR 0,14
+//r0 to printer
+OUT 0,1
+// r0=117
+AIR 0,2
+//  r0 to printer
+OUT 0,1
+// r0=108
+SIR 0,9
+//r0 to printer
+OUT 0,1
+//  r0=116
+AIR 0,8
+//  r0 to printer
+OUT 0,1
+// #220 r1=32 (space)
+LDA 1,0,32
+//r1 to printer (space)
+OUT 1,1
+//  r0=105
+SIR 0,11
+//r0 to printer
+OUT 0,1
+// r0=115
+AIR 0,10
+//r0 to printer
+OUT 0,1
+// r1=13 (return)
+SIR 1,19
+//r1 to printer (return)
+OUT 1,1
+
+//#output r0(the number)
+//load R0 from c(pointer1)
+LDR 0,1,0,1
+
+//checkpoint pass
+
+//#initialize pointer1=0 to a step variable
+//r3=0
+LDA 3,0,0
+//#230 pointer1=0
+STR 3,1,0
+
+//#set m3=200
+LDA 3,0,20
+AMR 3,0,3
+STR 3,0,3
+
+
+//R2=10
+LDA 2,0,10
+
+
+//checkpoint pass
+
+//#loop: division to get quotient and remainder (cannot support >=10)
+
+// #235 r0=quotient, r2=mod10
+DIV 0,2
+// X0=1024
+LDX 0,2
+//remainder+=48
+AIR 1,48
+//c(pointer2)=remainder in r1  (pointer initial value 1024+43)
+STR 1,1,1,1
+
+
+//pointer1++ (step++)
+// r3=pointer1
+LDR 3,1,0
+// #240 r3++
+AIR 3,1
+//pointer1=r3
+STR 3,1,0
+
+
+//#pointer2++
+//  r3=pointer2
+LDR 3,1,1
+//  r3++
+AIR 3,1
+// pointer2=r3
+STR 3,1,1
+
+
+//#loop exit
+//   X0=200
+LDX 0,3
+//  jump to 235=200+35 if quotient!=0
+JNE 0,1,35
+
+
+//#set step
+//   X0=1024
+LDX 0,2
+// r3=step (pointer1)
+LDR 3,1,0
+
+
+//checkpoint pass pointer1=5, pointer2= 1024+ 48, r3=5
+
+//#loop printout the number
+//pointer2--
+
+// #249 X0=1024
+LDX 0,2
+//  r0=pointer2
+LDR 0,1,1
+//       r0--
+SIR 0,1
+// pointer2=r0
+STR 0,1,1
+
+
+//#output a char
+//      r0=c(pointer2)
+LDR 0,1,1,1
+//   r0 printout
+OUT 0,1
+// X0=200
+LDX 0,3
+// jump to 249=200+49 if step!=0
+SOB 3,1,49
+
+
+//#output return
+// r1=13 (return)
+LDA 1,0,13
+//r1 to printer (return)
+OUT 1,1
+
+//final checkpoint

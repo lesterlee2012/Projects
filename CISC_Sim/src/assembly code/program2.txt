@@ -1,0 +1,693 @@
+//#variables declaration
+
+//pointer selective pointer(PSP) +11(+0)
+STX 1,11
+
+//#loop: list pointers +0~+9; pointer for word input +10
+//step=11
+LDA 3,0,11
+//r1=1024
+LDR 1,1,11
+//r1=+10
+AIR 1,10
+//#8 load from PSP 
+AIR 1,20
+STR 1,1,11,1
+//PSP++
+LDR 0,1,11
+AIR 0,1
+STR 0,1,11
+SOB 3,0,8
+
+//reset PSP
+STX 1,11
+//pointer selective register(PSR) +12(+30)
+LDR 0,1,11,1
+STR 0,1,12
+
+//pointer1 (+13)& pointer2 (+14) for comparison two words
+LDR 0,1,12
+STR 0,1,13
+AIR 0,20
+STR 0,1,14
+
+//temp1 (+15)& temp2(+16) reserved
+
+//initialize label pointers 21~29
+//r0=64
+LDR 0,0,3
+STR 0,1,21
+STR 0,1,22
+STR 0,1,23
+STR 0,1,24
+STR 0,1,25
+STR 0,1,26
+STR 0,1,27
+STR 0,1,28
+
+//#30 label1=78
+LDR 0,1,21
+AIR 0,14
+STR 0,1,21
+
+//label2=80
+LDR 0,1,22
+AIR 0,16
+STR 0,1,22
+
+//******************PART I: input&output 10 words*******************
+
+//step=10
+LDA 3,0,10
+
+//#loop: input 10 words
+//printout "please input a word"
+//"112 108 101 97 115 101 32 105 110 112 117 116 32 97 32 119 111 114 100 13"
+
+//#37 r0=56 
+LDA 0,0,56
+//r0=112
+SRC 0,1,1,0
+OUT 0,1
+//r0=108
+SIR 0,4
+OUT 0,1
+//r0=101
+SIR 0,7
+OUT 0,1
+//r0=97
+SIR 0,4
+OUT 0,1
+//r0=115
+AIR 0,18
+OUT 0,1
+//r0=101
+SIR 0,14
+OUT 0,1
+//r1=32 (space)
+LDA 1,0,32
+OUT 1,1
+//r0=105
+AIR 0,4
+OUT 0,1
+//#54 r0=110
+AIR 0,5
+OUT 0,1
+// r0=112
+AIR 0,2
+OUT 0,1
+//r0=117
+AIR 0,5
+OUT 0,1
+//r0=116
+SIR 0,1
+OUT 0,1
+//space
+OUT 1,1
+//r0=97
+SIR 0,19
+OUT 0,1
+//space
+OUT 1,1
+//r0=119
+AIR 0,22
+OUT 0,1
+//r0=111
+SIR 0,8
+OUT 0,1
+//#70 r0=114
+AIR 0,3
+OUT 0,1
+//r0=100
+SIR 0,14
+OUT 0,1
+//r0=13
+LDA 0,0,13
+OUT 0,1
+
+//PSR=c(PSP)
+LDR 0,1,11,1
+STR 0,1,12
+
+//#78 check input
+CHK 0,0
+//jump to lbl1=78
+JZ 0,1,21,1
+//#80
+IN 0,0
+OUT 0,1
+//c(PSR)=r0
+STR 0,1,12,1
+//PSR++
+LDR 0,1,12
+AIR 0,1
+STR 0,1,12
+CHK 0,0
+//jump to lbl2=80
+JNE 0,1,22,1
+
+//output the word
+LDA 0,0,13
+OUT 0,1
+//#90 PSP++
+LDR 0,1,11
+AIR 0,1
+STR 0,1,11
+SOB 3,0,37
+
+//******************PART II: sorting*******************
+//assign value to lbls
+//lbl1=78+28
+LDR 0,1,21
+AIR 0,28
+STR 0,1,21
+//lbl2=109
+AIR 0,3
+STR 0,1,22
+//lbl3=117
+AIR 0,8
+STR 0,1,23
+//lbl4=137
+AIR 0,20
+STR 0,1,24
+//lbl5=144
+AIR 0,7
+STR 0,1,25
+
+//step3=9
+LDA 3,0,9
+
+//#loop3 starts
+//#106 lbl1 reset PSP=+0
+STX 1,11
+//step2 R2=R3
+STR 3,0,3
+LDR 2,0,3
+
+//#loop2 starts
+
+//#109 lbl2 step1 R1=20
+LDA 1,0,20
+//pointer1=c(PSP)
+LDR 0,1,11,1
+STR 0,1,13
+//pointer2=c(PSP++)
+LDR 0,1,11
+AIR 0,1
+STR 0,1,11
+LDR 0,1,11,1
+STR 0,1,14
+
+//#loop1 starts
+
+//#117 lbl3 r0=c(pointer1)
+LDR 0,1,13,1
+//r0-=c(pointer2)
+SMR 0,1,14,1
+//jump to pointer1++ lbl4
+JZ 0,1,24,1
+//r0=-r0
+NOT 0
+//jge to loop2 end lbl5
+JGE 0,1,25,1
+//temp2=c(psp)
+LDR 0,1,11,1
+STR 0,1,16
+//psp--
+LDR 0,1,11
+SIR 0,1
+STR 0,1,11
+//temp1=c(psp)
+LDR 0,1,11,1
+STR 0,1,15
+//c(psp)=temp2
+LDR 0,1,16
+STR 0,1,11,1
+//psp++
+LDR 0,1,11
+AIR 0,1
+STR 0,1,11
+//c(psp)=temp1
+LDR 0,1,15
+STR 0,1,11,1
+//jmp to loop2 end lbl5
+JMP 1,25,1
+//#137 lbl4 pointer1++
+LDR 0,1,13
+AIR 0,1
+STR 0,1,13
+//pointer2++
+LDR 0,1,14
+AIR 0,1
+STR 0,1,14
+//loop1 end to lbl3
+SOB 1,1,23,1
+//#144 lbl 5 loop2 end jump to lbl2
+SOB 2,1,22,1
+//loop3 end lbl1
+SOB 3,1,21,1
+
+//******************PART III: printout sorted list*******************
+//printout "sorted list:"
+//"115 111 114 116 101 100 32 108 105 115 116 58 13"
+//r0=115
+LDA 0,0,63
+AIR 0,52
+OUT 0,1
+//r0=111
+SIR 0,4
+OUT 0,1
+//r0=114
+AIR 0,3
+OUT 0,1
+//r0=116
+AIR 0,2
+OUT 0,1
+//r0=101
+SIR 0,15
+OUT 0,1
+//r0=100
+SIR 0,1
+OUT 0,1
+//32
+LDA 1,0,32
+OUT 1,1
+//108
+AIR 0,8
+OUT 0,1
+//105
+SIR 0,3
+OUT 0,1
+//115
+AIR 0,10
+OUT 0,1
+//116
+AIR 0,1
+OUT 0,1
+//58
+LDA 0,0,58
+OUT 0,1
+//13
+LDA 0,0,13
+OUT 0,1
+
+//set step
+LDA 3,0,10
+
+//reset PSP
+STX 1,11
+
+//assign value to lbls
+//lbl1=106+47+30=183
+LDR 0,1,21
+AIR 0,47
+AIR 0,30
+STR 0,1,21
+//lbl2=186
+AIR 0,3
+STR 0,1,22
+//lbl3=193
+AIR 0,7
+STR 0,1,23
+
+//#loop printout sorted list
+//#lbl1=183 step=20 
+LDA 2,0,20
+//PSR=c(PSP)
+LDR 0,1,11,1
+STR 0,1,12
+//#lbl2=186 r0=c(PSR)
+LDR 0,1,12,1
+//jump to lbl3
+JZ 0,1,23,1
+OUT 0,1
+//PSR++
+LDR 0,1,12
+AIR 0,1
+STR 0,1,12
+//jump to lbl2
+SOB 2,1,22,1
+//#lbl3=193 printout
+LDA 0,0,13
+OUT 0,1
+//PSP++
+LDR 0,1,11
+AIR 0,1
+STR 0,1,11
+//jump to lbl1
+SOB 3,1,21,1
+
+//******************PART IV: input a sequence of characters and printout*******************
+//printout "please input a sequence of characters"
+//"112 108 101 97 115 101 32 105 110 112 117 116 32 97 32 115 101 113 117 101 110 99 101 32 111 102 32 99 104 97 114 97 99 116 101 114 115 13"
+//r0=56 
+LDA 0,0,56
+//r0=112
+SRC 0,1,1,0
+OUT 0,1
+//r0=108
+SIR 0,4
+OUT 0,1
+//r0=101
+SIR 0,7
+OUT 0,1
+//r0=97
+SIR 0,4
+OUT 0,1
+//r0=115
+AIR 0,18
+OUT 0,1
+//r0=101
+SIR 0,14
+OUT 0,1
+//r1=32 (space)
+LDA 1,0,32
+OUT 1,1
+//r0=105
+AIR 0,4
+OUT 0,1
+//r0=110
+AIR 0,5
+OUT 0,1
+// r0=112
+AIR 0,2
+OUT 0,1
+//r0=117
+AIR 0,5
+OUT 0,1
+//r0=116
+SIR 0,1
+OUT 0,1
+//space
+OUT 1,1
+//r0=97
+SIR 0,19
+OUT 0,1
+//space
+OUT 1,1
+//115
+AIR 0,18
+OUT 0,1
+//101 
+SIR 0,14
+OUT 0,1
+//113 
+AIR 0,12
+OUT 0,1
+//117 
+AIR 0,4
+OUT 0,1
+//101 
+SIR 0,16
+OUT 0,1
+//110 
+AIR 0,9
+OUT 0,1
+//99 
+SIR 0,11
+OUT 0,1
+//101 
+AIR 0,2
+OUT 0,1
+//32 
+OUT 1,1
+//111 
+AIR 0,10
+OUT 0,1
+//102 
+SIR 0,9
+OUT 0,1
+//32 
+OUT 1,1
+//99 
+SIR 0,3
+OUT 0,1
+//104 
+AIR 0,5
+OUT 0,1
+//97 
+SIR 0,7
+OUT 0,1
+//114 
+AIR 0,17
+OUT 0,1
+//97 
+SIR 0,17
+OUT 0,1
+//99 
+AIR 0,2
+OUT 0,1
+//116 
+AIR 0,17
+OUT 0,1
+//101 
+SIR 0,15
+OUT 0,1
+//114 
+AIR 0,13
+OUT 0,1
+//115 
+AIR 0,1
+OUT 0,1
+//13
+LDA 0,0,13
+OUT 0,1
+
+//assign value to lbls
+//lbl1=183+50+47=280
+LDR 0,1,21
+AIR 0,50
+AIR 0,47
+STR 0,1,21
+//lbl2=282
+AIR 0,2
+STR 0,1,22
+
+
+//#input the sequence
+//PSP=+10,PSR=c(PSP)
+LDR 0,1,11,1
+STR 0,1,12
+//#lbl1=280
+CHK 0,0
+JZ 0,1,21,1
+//#lbl2=282
+IN 0,0
+OUT 0,1
+//c(PSR)=r0
+STR 0,1,12,1
+//PSR++
+LDR 0,1,12
+AIR 0,1
+STR 0,1,12
+CHK 0,0
+JNE 0,1,22,1
+//printout
+LDA 0,0,13
+OUT 0,1
+
+
+//******************PART V: find and printout the words containing the sequence*******************
+//printout "the words containing the sequence:"
+//"116 104 101 32 119 111 114 100 115 32 99 111 110 116 97 105 110 105 110 103 32 116 104 101 32 115 101 113 117 101 110 99 101 58 13"
+//r0=58 
+LDA 0,0,58
+//r0=116
+SRC 0,1,1,0
+OUT 0,1
+//104
+SIR 0,12
+OUT 0,1
+//101
+SIR 0,3
+OUT 0,1
+//32
+LDA 1,0,32
+OUT 1,1
+//119
+AIR 0,18
+OUT 0,1
+//r0=111
+SIR 0,8
+OUT 0,1
+//r0=114
+AIR 0,3
+OUT 0,1
+//r0=100
+SIR 0,14
+OUT 0,1
+//r0=115
+AIR 0,15
+OUT 0,1
+//space
+OUT 1,1
+//99 
+SIR 0,16
+OUT 0,1
+//111 
+AIR 0,12
+OUT 0,1
+//110
+SIR 0,1
+OUT 0,1
+//116 
+AIR 0,6
+OUT 0,1
+//97 
+SIR 0,19
+OUT 0,1
+//105 
+AIR 0,8
+OUT 0,1
+//110 
+AIR 0,5
+OUT 0,1
+//105 
+SIR 0,5
+OUT 0,1
+//110 
+AIR 0,5
+OUT 0,1
+//103 
+SIR 0,7
+OUT 0,1
+//32
+OUT 1,1
+//r0=116
+AIR 0,13
+OUT 0,1
+//104
+SIR 0,12
+OUT 0,1
+//101
+SIR 0,3
+OUT 0,1
+//32
+OUT 1,1
+//115
+AIR 0,14
+OUT 0,1
+//101 
+SIR 0,14
+OUT 0,1
+//113 
+AIR 0,12
+OUT 0,1
+//117 
+AIR 0,4
+OUT 0,1
+//101 
+SIR 0,16
+OUT 0,1
+//110 
+AIR 0,9
+OUT 0,1
+//99 
+SIR 0,11
+OUT 0,1
+//101 
+AIR 0,2
+OUT 0,1
+//58
+AIR 1,26 
+OUT 1,1
+//13
+LDA 0,0,13
+OUT 0,1
+
+
+//assign value to lbls
+//lbl1=280+98
+LDR 0,1,21
+AIR 0,50
+AIR 0,48
+STR 0,1,21
+//lbl2=383
+AIR 0,5
+STR 0,1,22
+//lbl3=389
+AIR 0,6
+STR 0,1,23
+//lbl4=400
+AIR 0,11
+STR 0,1,24
+//lbl5=405
+AIR 0,5
+STR 0,1,25
+//lbl6=410
+AIR 0,5
+STR 0,1,26
+//lbl7=411
+AIR 0,1
+STR 0,1,27
+
+
+//look up the words and find words containing the sequence
+//reset PSP
+STX 1,11
+//step3=10
+LDA 3,0,10
+
+//loop3 starts
+//#lbl1=378 pointer1=c(psp)
+LDR 0,1,11,1
+STR 0,1,13
+//pointer2=list pointer11
+LDR 0,1,10
+STR 0,1,14
+
+//step2=20
+LDA 2,0,20
+//#lbl2=383 r0=c(pointer2)
+LDR 0,1,14,1
+//r0-=c(pointer1)
+SMR 0,1,13,1
+//jump to lbl3
+JZ 0,1,23,1
+//reset pointer2=list pointer11--
+LDR 0,1,10
+SIR 0,1
+STR 0,1,14
+//#lbl3=389
+//pointer1++
+LDR 0,1,13
+AIR 0,1
+STR 0,1,13
+//pointer2++
+LDR 0,1,14
+AIR 0,1
+STR 0,1,14
+//r0=c(pointer2)
+LDR 0,1,14,1
+//jump to lbl6
+JNE 0,1,26,1
+//r1=20
+LDA 1,0,20
+//PSR =c(PSP)
+LDR 0,1,11,1
+STR 0,1,12
+//#lbl4=400 loop1 starts r0=c(PSR)
+LDR 0,1,12,1
+//jump to lbl5
+JNE 0,1,25,1
+//printout
+LDA 0,0,13
+OUT 0,1
+//jump to lbl7
+JMP 1,27,1
+//#lbl5=405
+OUT 0,1
+//PSR++
+LDR 0,1,12
+AIR 0,1
+STR 0,1,12
+//loop1 end to lbl4
+SOB 1,1,24,1
+//#lbl6=410 loop2 end to lbl2
+SOB 2,1,22,1
+//#lbl7=411 PSP++
+LDR 0,1,11
+AIR 0,1
+STR 0,1,11
+//loop3 end to lbl1
+SOB 3,1,21,1

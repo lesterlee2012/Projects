@@ -1,0 +1,811 @@
+package simulator;
+import javax.swing.*;
+public class Processor implements Runnable{
+    // These are the internal variables used by the processor to decode and execute instructions
+    private int opcode;
+    private boolean indirectMode;
+    private boolean indexMode;
+    // These are the registers available in the processor
+    private int PC;// The program counter
+    private int CC;// The condition code register
+    private int IR;// The instruction register
+    private int X0;// The index register
+    private int RSR1;// Register select Register1
+    private int RSR2;// Register select Register2
+    private int GPRs[] = new int[4];// The general purpose registers
+    private int immediate;
+    private int operand1;
+    private int operand2;
+    private int DevID;
+    private int count, LR, AL;
+    private int ADDR;// The address of operand
+    private int MSR;// The Machine Status Register
+    private int MTR;// 
+    private int MFR;// The Machine Fault Register
+    private int ARR; //Arithmetic result register
+    private int LRR; //Logical result register
+    private int SRR; //Shift result register
+    public boolean stop; // this is for HALT
+    public boolean error; //case error output; will expand later
+    public boolean invalidInstr; // case invalid instruction  
+    public static int executed=0;//Notify single instructions are executed
+    private SimpleMemory sm;    
+///////////////////////////////////////////////////////////
+// The instruction loop for the processor. There are 4 steps
+// 1. Fetch instruction from memory ( needs one clock cycle )
+// 2. Decode instruction and fetch operands ( needs one clock cycle )
+// 3. Execute instruction ( needs one clock cycle )
+// 4. Store results ( needs one clock cycle )
+///////////////////////////////////////////////////////////
+    public Processor(SimpleMemory sm){
+        this.sm=sm;
+    }
+    
+    //initialize registers
+    public void clear(){
+        PC=3;
+        CC=0;
+        IR=0;
+        X0=0;
+        RSR1=0;
+        RSR2=0;
+        GPRs=new int[4];
+        MSR=0;
+        MTR=0;
+        MFR=0;
+        ARR=0;
+        LRR=0;
+        SRR=0;
+        stop=false;
+    }
+    
+    @Override
+    public void run(){                          
+        while(true){ 
+            if(SimulatorGUI.step==1){
+                instructionLoop();
+                SimulatorGUI.step=0;
+                break;
+            }
+            else if(SimulatorGUI.run==1){
+                try{
+                    instructionLoop();
+                    Thread.sleep(1);
+                }
+                catch(InterruptedException e){
+                    
+                }
+                //if(end==1)break;
+            }
+        }
+
+    }
+    
+    //get instuction, instruction decode and execute
+    public void instructionLoop() {
+        fetch();    	           
+        decode();
+        executeInstruction();        
+        if(stop==true)SimulatorGUI.run=0;
+    }
+
+    private void fetch() {
+        // check to see if the trap flag has been set. 
+        //If yes, save state and jump to appropriate location
+        // The address of the next instruction is in PC
+        sm.setMAR(PC);
+        sm.fetchWord();
+        IR = sm.getMDR();
+    }
+
+    private void decode() {
+    	opcode = IR / 1024;
+        int temp = IR % 1024;
+
+        switch (opcode) {
+            case 000:
+                // there are no operands for this case. so we can just skip
+                stop=true;
+                break;
+            case 001:
+            case 002:
+            case 003:
+            case 004:
+            case 005:
+            case 010:
+            case 011:
+            case 016:
+            case 017:            
+            case 033:
+            case 034:
+            case 035:
+            case 036:
+                // two registers and one offset                
+                if (temp / 512 == 0) {
+                    indirectMode = false;
+                } else {
+                    indirectMode = true;
+                }
+
+                temp %= 512;
+
+                if (temp / 256 == 0) {
+                    indexMode = false;
+                } else {
+                    indexMode = true;
+                }
+
+                temp = temp % 256;
+                RSR1 = temp / 64;
+                ADDR = temp % 64;
+                break;
+            case 006:
+            case 007:
+                // one register and one immediate
+                temp = temp % 256;
+                RSR1 = temp / 64;
+                immediate = temp % 64;
+                break;
+            case 012:
+            	//JCC
+                if (temp / 512 == 0) {
+                    indirectMode = false;
+                } else {
+                    indirectMode = true;
+                }
+
+                temp = temp % 512;
+                if (temp / 256 == 0) {
+                    indexMode = false;
+                } else {
+                    indexMode = true;
+                }
+
+                temp = temp % 256;
+                RSR1 = temp / 64;
+
+                ADDR = temp % 64;
+                break;
+            case 013:
+            case 014:
+            case 041:
+            case 042:
+                // Uses Index register
+                if (temp / 512 == 0) {
+                    indirectMode = false;
+                } else {
+                    indirectMode = true;
+                }
+
+                temp = temp % 512;
+                if (temp / 256 == 0) {
+                    indexMode = false;
+                } else {
+                    indexMode = true;
+                }
+
+                ADDR = temp % 64;
+                break;
+            case 015:
+                // one immediate
+                immediate = temp % 64;
+                break;
+            case 020:
+            case 021:
+            case 022:
+            case 023:
+            case 024:
+                // two register operands                
+                RSR1 = temp / 256;
+                temp = temp % 256;
+                RSR2 = temp / 64;
+                operand1 = GPRs[RSR1];
+                operand2 = GPRs[RSR2];
+                break;
+            case 025:
+            case 030:
+                // one register operand
+                // assumed to be in bits 6,7                
+                RSR1 = temp / 256;
+                operand1 = GPRs[RSR1];
+                break;
+            case 031:
+            case 032:
+                // Shift
+                LR = temp / 512;
+                temp = temp % 512;
+                RSR1 = temp / 128;
+                temp = temp % 128;
+                AL = temp / 64;
+                count = temp % 64;
+                break;
+            case 061:
+            case 062:
+            case 063:
+                // IO
+                temp = temp % 512;
+                RSR1 = temp / 128;
+                DevID = temp % 32;
+                break;
+            default:
+                // we need to set up a machine fault for this case
+                break;
+        }
+    }
+
+    // James (JJG) added
+    private void executeInstruction() {
+        int EA = 0; // temporary/internal Effective Address register
+
+        switch (opcode) {
+            case 000: // HALT
+                stop = true; // STATE = HALT
+                PC=11;
+                break;
+            case 001: // LDR - Load Register from Memory
+                EA = fetchEffectiveAddress();
+                GPRs[RSR1] = readWordFromMemory(EA);	// Registers(RSR1) <- MDR
+                PC+=1;
+                break;
+                
+            case 002: // STR - Store Register to Memory
+                EA = fetchEffectiveAddress();
+                sm.setMAR(EA);	// MAR <- EA
+                sm.setMDR(getGPRs(RSR1));	// MDR <- Registers(RSR1)
+                sm.writeWord();					// write MDR to memory
+                PC+=1;
+                break;
+            case 003: // LDA - Load Register with Address
+                EA = fetchEffectiveAddress();
+                if (indirectMode == true) {
+                    GPRs[RSR1] = readWordFromMemory(EA);	// Registers(RSR1) <- MDR, which is c(EA)
+                } else {
+                    GPRs[RSR1] = EA;	// Registers(RSR1) <- EA itself
+                }
+                PC+=1;
+                break;
+            case 004: // AMR - Add Memory To Register
+                EA = fetchEffectiveAddress();
+                GPRs[RSR1] += readWordFromMemory(EA);	// GPRs[RSR1] += c(EA)
+                //test for overflow and underflow
+                if( GPRs[RSR1] < 0 || GPRs[RSR1] > 32767 ){
+                    // set the condition code for underflow
+                    CC = 1;
+                    // truncate result to 16 bits
+                    GPRs[RSR1] ^= 65535 << 16;
+                }
+                else
+                    CC = 0;
+                PC+=1;
+                break;
+            case 005: // SMR - Subtract Memory From Register
+                EA = fetchEffectiveAddress();
+                GPRs[RSR1] -= readWordFromMemory(EA);	// GPRs[RSR1] -= c(EA)
+              //test for overflow and underflow
+                if( GPRs[RSR1] < 0 || GPRs[RSR1] > 32767 ){
+                    // set the condition code for underflow
+                    CC = 2;
+                    // truncate result to 16 bits
+                    GPRs[RSR1] ^= 65535 << 16;
+                }
+                else
+                    CC = 0;
+                PC+=1;
+                break;
+            case 006: // AIR - Add Immediate to Register
+            	if(immediate != 0)
+                GPRs[RSR1] += immediate;	// GPRs[RSR1] += Immediate
+                PC+=1;
+                break;
+            case 007: // SIR - Subtract Immediate from Register
+            	if(immediate != 0)
+                GPRs[RSR1] -= immediate;	// GPRs[RSR1] -= Immediate
+                PC+=1;
+                break;
+            case 010: // JZ - Jump If Zero
+            	if ( GPRs[RSR1] == 0)
+            		//EA = fetchEffectiveAddress();
+            		//PC = EA;
+            		PC = fetchEffectiveAddress(); // might use two lines to debug
+                        
+            	else
+            		PC+=1;
+                
+            	break;
+            case 011: // JNE - Jump If Not Equal to Zero
+            	if ( GPRs[RSR1] != 0)
+            		//EA = fetchEffectiveAddress();
+            		//PC = EA;
+            		PC = fetchEffectiveAddress(); // might use two lines to debug
+            	else
+            		PC+=1;
+            	break;
+            case 012: // JCC - Jump If Condition Code
+            	//if ( GPRs[RSR1] == 1)
+                if ( RSR1 == 1) // need to change in decode to set a CC value
+                {
+            		//EA = fetchEffectiveAddress();
+            		//PC = EA;
+            		PC = fetchEffectiveAddress(); // might use two lines to debug
+                }
+            	else
+            		PC+=1;
+                break;
+            case 013: // JMP - Unconditional Jump to Address
+        		//EA = fetchEffectiveAddress();
+        		//PC = EA;
+        		PC = fetchEffectiveAddress(); // might use two lines to debug
+        		break;
+            case 014: // JSR - Jump and Save Return Address
+            	GPRs[3] = PC+1;
+            	//tempVal = GPRs[3]; //this is supposed to be handled WITHIN the subroutine
+
+        		//EA = fetchEffectiveAddress();
+        		//PC = EA;
+            	PC = fetchEffectiveAddress();
+            	break;
+            case 015: // RFS - Return From Subroutine
+            	GPRs[0] = immediate;
+            	//GPRs[3] = tempVal; //this is supposed to be handled WITHIN the subroutine
+
+            	//PC = readWordFromMemory(GPRs[3], sm); // this would set PC <- c(R3)
+            	PC = GPRs[3]; // PC <- R3 done here, because PC shouldn't be c(R3), but R3
+            	break;
+            case 016: // SOB - Subtract One and Branch
+            	GPRs[RSR1] -= 1; // decrement value in register
+            	if (GPRs[RSR1] > 0)
+            		//EA = fetchEffectiveAddress();
+            		//PC = EA;
+            		PC = fetchEffectiveAddress(); // might use two lines to debug
+            	else
+            		PC++;                  
+            	break;
+            case 017: // JGE - Jump Greater than or Equal to
+                if ( GPRs[RSR1]>>15!=1)
+            		//EA = fetchEffectiveAddress();
+            		//PC = EA;
+            		PC = fetchEffectiveAddress(); // might use two lines to debug                        
+            	else
+            		PC++;
+            	break;
+            case 020: // MUL - Multiply Register by Register
+            	// the RSR1 and RSR2 should be either 0 or 2
+                if( RSR1 % 2 == 0 && RSR2 % 2 == 0 ){
+                    int temp = operand1 * operand2;
+                    GPRs[RSR1] = temp / 65536;
+                    GPRs[RSR1 + 1] = temp % 65536;
+                    // truncate result to 16 bits
+                    if( GPRs[RSR1] < 0 || GPRs[RSR1] > 32767 ){
+                        GPRs[RSR1] ^= 65535 << 16;
+                    }
+                    if( GPRs[RSR1+1] < 0 || GPRs[RSR1+1] > 32767 ){
+                        GPRs[RSR1+1] ^= 65535 << 16;
+                    }
+                }
+                PC+=1;
+                break;
+            case 021: // DIV - Divide Register by Register
+            	// the RSR1 and RSR2 should be either 0 or 2
+                if( RSR1 % 2 == 0 && RSR2 % 2 == 0 ){
+                    if(operand2 == 0)
+                        CC = 4;
+                    else{
+                        GPRs[RSR1] = operand1 / operand2;
+                        GPRs[RSR1 + 1] = operand1 % operand2;
+                    // truncate result to 16 bits
+                        /*if( GPRs[RSR1] < 0 || GPRs[RSR1] > 32767 ){
+                            GPRs[RSR1] ^= 65535 << 16;
+                        }
+                        if( GPRs[RSR1+1] < 0 || GPRs[RSR1+1] > 32767 ){
+                            GPRs[RSR1+1] ^= 65535 << 16;
+                        }*/
+                    }
+                }
+                PC+=1;
+                break;
+            case 022: // TER - Test the Equality of Register and Register
+            	if( operand1 == operand2)
+                    CC = 1; // set the equal flag to true
+            	else
+            		CC = 0;
+                // the CC register is assumed to be reset every instruction
+                // hence not setting it to zero explicitly
+                PC+=1;
+                break;
+            case 023: // AND - Logical AND of Register and Register
+            	GPRs[RSR1] = operand1 & operand2;
+                PC+=1;
+                break;
+            case 024: // ORR - Logical OR of Register and Register
+            	GPRs[RSR1] = operand1 | operand2;
+                PC+=1;
+                break;
+            case 025: // NOT - Logical NOT of Register and Register
+                int temp = 65535 << 16;
+                GPRs[RSR1] = (~operand1) ^ temp; // the modulus is to ensure the upper bits are not inverted
+                // truncate result to 16 bits
+                //if( GPRs[RSR1] < 0 || GPRs[RSR1] > 32767 ){
+                    //GPRs[RSR1] ^= 65535 << 16;
+                //}
+                PC+=1;
+                break;
+            case 031: // SRC - Shift Register by Count
+            	if( LR == 0 ){
+                    if( AL == 0) {
+                        // modified by Lester
+                        GPRs[RSR1] = GPRs[RSR1]*65536+GPRs[RSR1]; 
+                    	GPRs[RSR1] = GPRs[RSR1] >> count;  // arithmetic shift right, you are supposed to set some CC bits in this case
+                        String strGPRs=Integer.toBinaryString(GPRs[RSR1]).substring(0,16);
+                        GPRs[RSR1]=Integer.parseInt(strGPRs,2);
+                    }
+                	else                      
+                    	GPRs[RSR1] = GPRs[RSR1] >>> count; //logical shift right                   
+                }
+                else{//left
+                    if( AL == 0) //logical                   
+                    	GPRs[RSR1] = GPRs[RSR1] << count;   // arithmetic shift left, you are supposed to set some CC bits in this case
+                    else                    
+                    	GPRs[RSR1] = GPRs[RSR1] << count; //logical shift left
+                    
+                }
+                // ensure the result is never more than 16 bits long
+            	GPRs[RSR1] %= 65536;
+                PC+=1;
+                break;
+            case 032: // RRC - Rotate Register by Count if( LR == 0 ){
+            	if( LR == 0 ){
+                    if( AL == 1) {
+	                    //GPRs[RSR1] = Integer.valueOf(String.valueOf(Integer.toBinaryString(GPRs[RSR1])) + String.valueOf(Integer.toBinaryString(GPRs[RSR1])));
+	                    GPRs[RSR1] = GPRs[RSR1] + GPRs[RSR1] * 65536;
+	                    //GPRs[RSR1] = GPRs[RSR1] + GPRs[RSR1] * 65535;
+	                    //GPRs[RSR1] =GPRs[RSR1] >>> count | GPRs[RSR1] <<(32-count);  // logical rotate right  
+	                    GPRs[RSR1] = GPRs[RSR1] >>> (count % 16);
+                    	GPRs[RSR1] = GPRs[RSR1] % 65536;
+                    }
+                }
+                else{
+                    if( AL == 1) {                   
+                    	//GPRs[RSR1] = (short)GPRs[RSR1] << count | (short)GPRs[RSR1] >>>(16-count);   // logical rotate left
+	                    //GPRs[RSR1] = Integer.valueOf(String.valueOf(Integer.toBinaryString(GPRs[RSR1])) + String.valueOf(Integer.toBinaryString(GPRs[RSR1])));
+	                    GPRs[RSR1] = GPRs[RSR1] + GPRs[RSR1] * 65536;
+	                    //GPRs[RSR1] = GPRs[RSR1] + GPRs[RSR1] * 65535;
+	                    //GPRs[RSR1] =GPRs[RSR1] >>> count | GPRs[RSR1] <<(32-count);  // logical rotate right  
+	                    GPRs[RSR1] = GPRs[RSR1] << (count % 16);
+	                    //GPRs[RSR1] = (int)GPRs[RSR1] / 65536;
+	                    GPRs[RSR1] = Integer.parseInt(Integer.toBinaryString(GPRs[RSR1]).substring(0, 16), 2);
+                    }
+                }
+            	
+                PC+=1; // fix later
+                break;
+            case 041: // LDX - Load Index Register from Memory
+                EA = fetchEffectiveAddress();
+                X0 = readWordFromMemory(EA);	// X0 <- MDR
+                PC+=1;
+                break;
+            case 042: // STX - Store Index Register to Memory
+                EA = fetchEffectiveAddress();     
+                sm.setMAR(EA);	// MAR <- EA
+                sm.setMDR(getX0());	// MDR <- X0
+                sm.writeWord();			// write MDR to memory
+                PC+=1;
+                break;
+            case 026:
+            case 027:
+            case 030:
+            case 033:
+            case 034:
+            case 035:
+            case 036:
+            case 037:
+            case 040:
+            case 043:
+            case 044:
+            case 045:
+            case 046:
+            case 047:
+            case 050:
+            case 051:
+            case 052:
+            case 053:
+            case 054:
+            case 055:
+            case 056:
+            case 057:
+            case 060:
+            case 061: //Input Character to Register From Device               
+                switch(DevID){
+                    case 0: //input from keyborad
+                        //System.out.println("Keyboard char= "+Keyboard.getChar());
+                        GPRs[RSR1]=Keyboard.getChar();
+                        Keyboard.pointer++;
+                        Keyboard.length--;
+                        if(Keyboard.length==0)Keyboard.clear();
+                        break;
+                    case 2: //load file from card reader(removed)                        
+                        break;
+                    case 3: //input from GPRs[0]
+                        GPRs[RSR1]=GPRs[0];
+                        break;
+                    case 4: //input from GPRs[1]
+                        GPRs[RSR1]=GPRs[1];
+                        break;
+                    case 5: //input from GPRs[2]
+                        GPRs[RSR1]=GPRs[2];
+                        break;
+                    case 6: //input from GPRs[3]
+                        GPRs[RSR1]=GPRs[3];
+                        break;                                    
+                                     
+                    default: //when DevID faults
+                        break;
+                    }
+                  PC+=1;
+                  break;
+            case 062: //Output Character to Device from Register
+                switch(DevID){
+                    case 1: //output to console printer
+                        //System.out.println("char= "+getGPRs(RSR1));
+                        Printer.writeChar(GPRs[RSR1]);
+                        if(GPRs[RSR1]==13||GPRs[RSR1]==10)
+                        Printer.setSR(1);
+                        break;
+                    case 3: //output to GPRs[0]
+                        setGPRs(0,GPRs[RSR1]);
+                        break;
+                    case 4: //output to GPRs[1]
+                        setGPRs(1,GPRs[RSR1]);
+                        break;
+                    case 5: //output to GPRs[2]
+                        setGPRs(2,GPRs[RSR1]);
+                        break;
+                    case 6: //output to GPRs[3]
+                        setGPRs(3,GPRs[RSR1]);
+                        break;    
+                    default: //when DevID faults
+                        break;    
+                }
+                PC+=1;
+                break;
+            case 063: //Check Device Status to Register
+                switch(DevID){
+                    case 0: //status of keyborad
+                        GPRs[RSR1]=Keyboard.checkSR(); 
+                        break;
+                    case 1: //status of printer
+                        GPRs[RSR1]=Printer.checkSR();
+                        break;
+                    case 2: //status of card reader(removed)                        
+                        break;
+                    case 3: //status of GPRs[0]
+                        if(GPRs[0]!=0)
+                            GPRs[RSR1]=1;
+                        else
+                            GPRs[RSR1]=0;
+                        break;
+                    case 4: //output to GPRs[1]
+                        if(GPRs[1]!=0)
+                            GPRs[RSR1]=1;
+                        else
+                            GPRs[RSR1]=0;
+                        break;
+                    case 5: //output to GPRs[2]
+                        if(GPRs[2]!=0)
+                            GPRs[RSR1]=1;
+                        else
+                            GPRs[RSR1]=0;
+                        break;
+                    case 6: //output to GPRs[3]
+                        if(GPRs[3]!=0)
+                            GPRs[RSR1]=1;
+                        else
+                            GPRs[RSR1]=0;
+                        break;
+                    default: //when DevID faults
+                        break;
+                }
+                PC+=1;
+                break;                
+            case 064:
+            case 065:
+            case 066:
+            case 067:
+            case 070:
+            case 071:
+            case 072:
+            case 073:
+            case 074:
+            case 075:
+            case 076:
+            case 077:
+                error=true;
+            	System.out.println(error);//print to OUTPUT an error message and halt
+            	//System.out.println.... to the OUTPUT window
+            	invalidInstr=true;
+            	PC=2;//PC=2;
+            	break;
+        }
+        //when an instruction is executed successfully, notify updater to refresh
+        executed=1;
+    }
+    
+    // Xiao added
+    private int fetchEffectiveAddress(){
+        int EA=ADDR;
+        if (indirectMode == false){
+            if(indexMode==false)EA=ADDR;
+            else EA+=X0;
+        }      
+        else{
+            if(indexMode==false){
+                sm.setMAR(EA);
+                sm.fetchWord();
+                EA=sm.getMDR();
+            }
+            else{                
+                sm.setMAR(EA+X0);
+                sm.fetchWord();
+                EA=sm.getMDR();
+            }
+        }
+        return EA;
+    }
+    
+    private int readWordFromMemory(int Addr)
+    {
+        sm.setMAR(Addr);
+        sm.fetchWord();
+        return sm.getMDR();
+    }
+
+    public int getPC() {
+        return PC;
+    }
+
+    public void setPC(int pc) {
+        PC = pc;
+    }
+
+    public int getCC() {
+        return CC;
+    }
+
+    public void setCC(int cc) {
+        CC = cc;
+    }
+
+    public int getIR() {
+        return IR;
+    }
+
+    public void setIR(int ir) {
+        IR = ir;
+    }
+
+    public int getOpcode() {
+        return opcode;
+    }
+
+    public void setOpcode(int op) {
+        opcode = op;
+    }
+
+    public int getImmediate() {
+        return immediate;
+    }
+
+    public void setImmediate(int im) {
+        immediate = im;
+    }
+
+    public int getADDR() {
+        return ADDR;
+    }
+
+    public void setADDR(int addr) {
+        ADDR = addr;
+    }
+
+    public int getMSR() {
+        return MSR;
+    }
+
+    public void setMSR(int msr) {
+        MSR = msr;
+    }
+
+    public int getMTR() {
+        return MTR;
+    }
+
+    public void setMTR(int mtr) {
+        MTR = mtr;
+    }
+
+    public int getMFR() {
+        return MFR;
+    }
+
+    public void setMFR(int mfr) {
+        MFR = mfr;
+    }
+
+    public int getX0() {
+        return X0;
+    }
+
+    public void setX0(int x0) {
+        X0 = x0;
+    }
+
+    public int getRSR1() {
+        return RSR1;
+    }
+
+    public void setRSR1(int rsr1) {
+        RSR1 = rsr1;
+    }
+
+    public int getRSR2() {
+        return RSR2;
+    }
+
+    public void setRSR2(int rsr2) {
+        RSR2 = rsr2;
+    }
+
+    public int getARR() {
+        return ARR;
+    }
+
+    public void setARR(int arr) {
+        ARR = arr;
+    }
+
+    public int getLRR() {
+        return LRR;
+    }
+
+    public void setLRR(int lrr) {
+        LRR = lrr;
+    }
+
+    public int getSRR() {
+        return SRR;
+    }
+
+    public void setSRR(int srr) {
+        SRR = srr;
+    }
+
+    // JJG added
+    public int getGPRs(int rsr) {
+        return GPRs[rsr];
+    }
+
+    // JJG added
+    public void setGPRs(int rsr, int value) {
+        GPRs[rsr] = value;
+    }
+
+    // JJG added
+    public boolean getIndexMode() {
+        return indexMode;
+    }
+
+    // JJG added
+    public void setIndexMode(boolean im) {
+        indexMode = im;
+    }
+
+    // JJG added
+    public boolean getIndirectMode() {
+        return indirectMode;
+    }
+    // JJG added
+
+    public void setIndirectMode(boolean im) {
+        indirectMode = im;
+    }
+
+}

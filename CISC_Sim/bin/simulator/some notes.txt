@@ -1,0 +1,13 @@
+Project Simulator-
+src-simulator package
+simulator package-classes
+classes-simulator(including main method; the main part of our program; GUI inside)
+       -SimpleMemory(memory class; with MAR and MDR temporarily)
+       -Registers(register class including almost all registers used in processor)
+
+Progress:
+GUI form finished; very simple function implemented;
+I have put a jar file in dist folder which you can find in our project directories.
+To be done before Wed night: instruction implemented (James' work). Just put the code in main method of class simulator.Before we finish all the event part, we may still put instruction implemented codes in main method. (After we finish the event part, we can put them in start button click event.)
+
+where is the dist folder?
