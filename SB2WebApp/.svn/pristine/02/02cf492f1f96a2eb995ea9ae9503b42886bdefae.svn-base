@@ -1,0 +1,31 @@
+package com.antra.test;
+
+import static org.junit.Assert.assertNotNull;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.antra.testConfig.TestContextConfig;
+import com.antra.wsimport.GeoIPServiceSoap;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = TestContextConfig.class)
+@ActiveProfiles("default")
+public class SoapTest {
+	@Autowired
+	GeoIPServiceSoap geo;
+	
+	@Test
+	public void dsShouldNotBeNull() {
+		assertNotNull(geo);
+	}
+	
+	@Test
+	public void test(){
+		System.out.println(geo.getGeoIP("108.28.24.128").getCountryName());
+	}
+}

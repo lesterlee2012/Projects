@@ -1,0 +1,128 @@
+package com.antra.test;
+
+import static org.junit.Assert.assertNotNull;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+
+import com.antra.dao.DeptDAO;
+import com.antra.dao.EmpDAO;
+import com.antra.dao.ProjDAO;
+import com.antra.entity.Department;
+import com.antra.entity.Employee;
+import com.antra.entity.Project;
+import com.antra.testConfig.TestContextConfig;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = TestContextConfig.class)
+@TransactionConfiguration(defaultRollback = true)
+@ActiveProfiles("default")
+public class JPATest {
+	@Autowired
+	private DeptDAO dd;
+	@Autowired
+	private EmpDAO ed;
+	@Autowired
+	private ProjDAO pd;
+	
+	//injection test
+	@Test
+	public void ddShouldNotBeNull() {
+		assertNotNull(dd);
+	}
+	@Test
+	public void edShouldNotBeNull() {
+		assertNotNull(ed);
+	}
+	@Test
+	public void pdShouldNotBeNull() {
+		assertNotNull(pd);
+	}
+	
+	//DD test
+	@Test
+	public void testFindByIdInt() {
+		dd.findOne(10);
+	}
+	@Test
+	public void testFindByNameString() {
+		dd.findByName("ENGINEER");
+	}
+	@Test
+	public void testSave() {
+		Department d=new Department();
+		d.setId(1);
+		d.setName("ENGINEER");
+		d.setLoc("SAN FRANCISCO");
+		dd.save(d);
+	}
+	@Test
+	public void testDelete() {
+		dd.delete(1);
+	}
+	@Test
+	public void testGetList() {
+		dd.findAll();
+	}
+	
+	//ED test
+	@Test
+	public void testEdFindByIdInt() {
+		ed.findOne(4000);
+	}
+	@Test
+	public void testEdFindByNameString() {
+		ed.findByName("MIKE");
+	}
+	@Test
+	public void testEdSave() {
+		Employee e=new Employee();
+		e.setId(4000);
+		e.setName("MIKE");
+		e.setCommission(100);
+		e.setDeptid(50);
+//		e.setHiredate(new Date());
+		e.setJob("MANAGER");
+		e.setManager(1000);
+		e.setSalary(1000);
+		ed.save(e);
+	}
+	@Test
+	public void testEdDelete() {
+		ed.delete(4000);
+	}
+	@Test
+	public void testEdGetList() {
+		ed.findAll();
+	}
+	
+	//PD test
+	@Test
+	public void testPdFindByIdInt() {
+		pd.findOne(1);
+	}
+	@Test
+	public void testPdFindByNameString() {
+		pd.findByName("C++");
+	}
+	@Test
+	public void testPdSave() {
+		Project p=new Project();
+		p.setId(1);
+		p.setName("BASIC");
+		pd.save(p);
+	}
+	@Test
+	public void testPdDelete() {
+		pd.delete(1);
+	}
+	@Test
+	public void testPdGetList() {
+		pd.findAll();
+	}
+}

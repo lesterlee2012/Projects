@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.antra.test.RestfulTest" time="3.678" tests="5" errors="4" skipped="0" failures="0">
+  <properties>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="sun.boot.library.path" value="D:\Programming Language\Java\jdk1.7.0_71\jre\bin"/>
+    <property name="java.vm.version" value="24.71-b01"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="java.vendor.url" value="http://java.oracle.com/"/>
+    <property name="path.separator" value=";"/>
+    <property name="guice.disable.misplaced.annotation.check" value="true"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="user.script" value=""/>
+    <property name="user.country" value="US"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.os.patch.level" value="Service Pack 1"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="D:\Java_WorkSpace\SB2WebApp"/>
+    <property name="java.runtime.version" value="1.7.0_71-b14"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="java.endorsed.dirs" value="D:\Programming Language\Java\jdk1.7.0_71\jre\lib\endorsed"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.io.tmpdir" value="C:\Users\Lester\AppData\Local\Temp\"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.variant" value=""/>
+    <property name="os.name" value="Windows 7"/>
+    <property name="classworlds.conf" value="D:\Java_WorkSpace\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf8161322038726074764.tmp"/>
+    <property name="sun.jnu.encoding" value="GBK"/>
+    <property name="java.library.path" value="D:\Programming Language\Java\jdk1.7.0_71\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;D:\oraclexe\app\oracle\product\11.2.0\server\bin;;D:\Programming Language\Python3\;C:\Program Files\AuthenTec TrueSuite\;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x86;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x64;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;\;C:\Program Files (x86)\Sony\VAIO Startup Setting Tool ;D:\Programming Language\Python;C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files\Microsoft SQL Server\100\DTS\Binn\;D:\Programming Language\Vim\vim74;D:\Programming Language\JavaRelated\apache-tomcat-7.0.57\bin;D:\Programming Language\Java\jdk1.7.0_71\bin;C:\Program Files (x86)\Skype\Phone\;."/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.class.version" value="51.0"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="os.version" value="6.1"/>
+    <property name="user.home" value="C:\Users\Lester"/>
+    <property name="user.timezone" value="America/New_York"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="java.specification.version" value="1.7"/>
+    <property name="file.encoding" value="GBK"/>
+    <property name="user.name" value="Lester"/>
+    <property name="java.class.path" value="/D:/Programming Language/JavaRelated/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.5.1.20150109-1819/jars/plexus-classworlds-2.5.1.jar"/>
+    <property name="org.slf4j.simpleLogger.defaultLogLevel" value="info"/>
+    <property name="java.vm.specification.version" value="1.7"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.home" value="D:\Programming Language\Java\jdk1.7.0_71\jre"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -B install"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.language" value="en"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="1.7.0_71"/>
+    <property name="java.ext.dirs" value="D:\Programming Language\Java\jdk1.7.0_71\jre\lib\ext;C:\Windows\Sun\Java\lib\ext"/>
+    <property name="sun.boot.class.path" value="D:\Programming Language\Java\jdk1.7.0_71\jre\lib\resources.jar;D:\Programming Language\Java\jdk1.7.0_71\jre\lib\rt.jar;D:\Programming Language\Java\jdk1.7.0_71\jre\lib\sunrsasign.jar;D:\Programming Language\Java\jdk1.7.0_71\jre\lib\jsse.jar;D:\Programming Language\Java\jdk1.7.0_71\jre\lib\jce.jar;D:\Programming Language\Java\jdk1.7.0_71\jre\lib\charsets.jar;D:\Programming Language\Java\jdk1.7.0_71\jre\lib\jfr.jar;D:\Programming Language\Java\jdk1.7.0_71\jre\classes"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="maven.home" value="D:\Java_WorkSpace\SB2WebApp\EMBEDDED"/>
+    <property name="file.separator" value="\"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="sun.desktop" value="windows"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+  </properties>
+  <testcase name="updateDept" classname="com.antra.test.RestfulTest" time="3.62">
+    <error message="Unexpected exception, expected&lt;org.springframework.web.client.ResourceAccessException&gt; but was&lt;org.springframework.web.client.HttpClientErrorException&gt;" type="java.lang.Exception"><![CDATA[java.lang.Exception: Unexpected exception, expected<org.springframework.web.client.ResourceAccessException> but was<org.springframework.web.client.HttpClientErrorException>
+	at org.springframework.web.client.DefaultResponseErrorHandler.handleError(DefaultResponseErrorHandler.java:91)
+	at org.springframework.web.client.RestTemplate.handleResponseError(RestTemplate.java:589)
+	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:547)
+	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:503)
+	at org.springframework.web.client.RestTemplate.put(RestTemplate.java:382)
+	at com.antra.restful.RestClient.updateDept(RestClient.java:27)
+	at com.antra.test.RestfulTest.updateDept(RestfulTest.java:40)
+]]></error>
+    <system-err><![CDATA[SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+]]></system-err>
+  </testcase>
+  <testcase name="rsShouldNotBeNull" classname="com.antra.test.RestfulTest" time="0.001"/>
+  <testcase name="getDept" classname="com.antra.test.RestfulTest" time="0.029">
+    <error message="Unexpected exception, expected&lt;org.springframework.web.client.ResourceAccessException&gt; but was&lt;org.springframework.web.client.HttpClientErrorException&gt;" type="java.lang.Exception"><![CDATA[java.lang.Exception: Unexpected exception, expected<org.springframework.web.client.ResourceAccessException> but was<org.springframework.web.client.HttpClientErrorException>
+	at org.springframework.web.client.DefaultResponseErrorHandler.handleError(DefaultResponseErrorHandler.java:91)
+	at org.springframework.web.client.RestTemplate.handleResponseError(RestTemplate.java:589)
+	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:547)
+	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:503)
+	at org.springframework.web.client.RestTemplate.getForObject(RestTemplate.java:240)
+	at com.antra.restful.RestClient.getDept(RestClient.java:21)
+	at com.antra.test.RestfulTest.getDept(RestfulTest.java:31)
+]]></error>
+  </testcase>
+  <testcase name="createDept" classname="com.antra.test.RestfulTest" time="0.026">
+    <error message="Unexpected exception, expected&lt;org.springframework.web.client.ResourceAccessException&gt; but was&lt;org.springframework.web.client.HttpClientErrorException&gt;" type="java.lang.Exception"><![CDATA[java.lang.Exception: Unexpected exception, expected<org.springframework.web.client.ResourceAccessException> but was<org.springframework.web.client.HttpClientErrorException>
+	at org.springframework.web.client.DefaultResponseErrorHandler.handleError(DefaultResponseErrorHandler.java:91)
+	at org.springframework.web.client.RestTemplate.handleResponseError(RestTemplate.java:589)
+	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:547)
+	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:503)
+	at org.springframework.web.client.RestTemplate.postForObject(RestTemplate.java:331)
+	at com.antra.restful.RestClient.createDept(RestClient.java:37)
+	at com.antra.test.RestfulTest.createDept(RestfulTest.java:54)
+]]></error>
+  </testcase>
+  <testcase name="deleteDept" classname="com.antra.test.RestfulTest" time="0.002">
+    <error message="Unexpected exception, expected&lt;org.springframework.web.client.ResourceAccessException&gt; but was&lt;org.springframework.web.client.HttpClientErrorException&gt;" type="java.lang.Exception"><![CDATA[java.lang.Exception: Unexpected exception, expected<org.springframework.web.client.ResourceAccessException> but was<org.springframework.web.client.HttpClientErrorException>
+	at org.springframework.web.client.DefaultResponseErrorHandler.handleError(DefaultResponseErrorHandler.java:91)
+	at org.springframework.web.client.RestTemplate.handleResponseError(RestTemplate.java:589)
+	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:547)
+	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:503)
+	at org.springframework.web.client.RestTemplate.delete(RestTemplate.java:401)
+	at com.antra.restful.RestClient.deleteDept(RestClient.java:32)
+	at com.antra.test.RestfulTest.deleteDept(RestfulTest.java:45)
+]]></error>
+  </testcase>
+</testsuite>

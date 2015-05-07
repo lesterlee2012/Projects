@@ -1,0 +1,43 @@
+package com.antra.testConfig;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScan.Filter;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
+import com.antra.restful.RestClient;
+import com.antra.wsimport.GeoIPService;
+import com.antra.wsimport.GeoIPServiceSoap;
+
+@Configuration
+@ComponentScan(basePackages = {"com.antra.dao","com.antra.testConfig"}, excludeFilters = { @Filter(type = FilterType.ANNOTATION, value = EnableWebMvc.class) })
+public class TestContextConfig {
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer placeholderConfigurer() {
+		PropertySourcesPlaceholderConfigurer ppc = new PropertySourcesPlaceholderConfigurer();
+		ClassPathResource persistence=new ClassPathResource("persistence.properties");
+		ClassPathResource environment=new ClassPathResource("environment.properties");
+		ppc.setLocations(new ClassPathResource[]{persistence, environment});
+		return ppc;
+	}
+	
+	@Bean
+	public RestTemplate restTemplate(){
+		return new RestTemplate();
+	}
+
+	@Bean
+	public RestClient restClient(){
+		return new RestClient();
+	}
+	
+	@Bean
+	public GeoIPServiceSoap geoIP(){
+		 return new GeoIPService().getGeoIPServiceSoap(); 
+	}
+}

@@ -1,0 +1,127 @@
+package com.antra.web;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.antra.dao.DeptDAO;
+import com.antra.dao.EmpDAO;
+import com.antra.dao.ProjDAO;
+import com.antra.entity.Department;
+import com.antra.entity.Employee;
+import com.antra.entity.Project;
+
+/**
+ * JSON based Spring RESTful WS
+ * @author Lester
+ *
+ */
+@RestController
+@RequestMapping("/Restful")
+public class RestfulController {
+	@Autowired
+	private DeptDAO dd;
+	@Autowired
+	private EmpDAO ed;
+	@Autowired
+	private ProjDAO pd;
+
+	@RequestMapping(value = "/department/{id}", method = RequestMethod.GET)
+	// @ResponseBody this is used for older version before spring 4.0
+	public Department getDepartmentDetail(@PathVariable Integer id) {
+		Department d = dd.findOne(id);
+		return d;
+	}
+
+	@RequestMapping(value = "/department", method = RequestMethod.GET)
+	public List<Department> getDepartments() {
+		return dd.findAll();
+	}
+
+	@RequestMapping(value = "/department", method = RequestMethod.POST, consumes = "application/json")
+	public Department saveDepartment(@RequestBody Department d) {
+		return dd.save(d);
+	}
+
+	@RequestMapping(value = "/department/{id}", method = RequestMethod.PUT, consumes = "application/json")
+	public Department updateDepartment(@RequestBody Department d,
+			@PathVariable Integer id) {
+		if (dd.findOne(id) == null || d.getId() != id)
+			return null;
+		return dd.save(d);
+	}
+
+	@RequestMapping(value = "/department/{id}", method = RequestMethod.DELETE)
+	public void deleteDepartment(@PathVariable Integer id) {
+		dd.delete(id);
+	}
+
+	// for Employee
+	@RequestMapping(value = "/department/{id}/employee/{eid}", method = RequestMethod.GET)
+	public Employee getEmployeeDetail(@PathVariable Integer id,
+			@PathVariable Integer eid) {
+		Employee e = dd.findEmpById(id, eid);
+		return e;
+	}
+
+	@RequestMapping(value = "/department/{id}/employee", method = RequestMethod.GET)
+	public List<Employee> getEmployees(@PathVariable Integer id) {
+		Department d = dd.findOne(id);
+		return d.getEmployees();
+	}
+
+	@RequestMapping(value = "/department/{id}/employee", method = RequestMethod.POST, consumes = "application/json")
+	public Employee saveEmployee(@RequestBody Employee e, @PathVariable Integer id) {
+		e.setDeptid(id);
+		return ed.save(e);
+	}
+
+	@RequestMapping(value = "/department/{id}/employee/{eid}", method = RequestMethod.PUT, consumes = "application/json")
+	public Employee updateEmployee(@RequestBody Employee e, @PathVariable Integer eid) {
+		if (ed.findOne(eid) == null || e.getId() != eid)
+			return null;
+		return ed.save(e);
+	}
+
+	@RequestMapping(value = "/department/{id}/employee/{eid}", method = RequestMethod.DELETE)
+	public void deleteEmployee(@PathVariable Integer id,
+			@PathVariable Integer eid) {
+		Employee e = dd.findEmpById(id, eid);
+		if (e == null)
+			return;
+		ed.delete(eid);
+	}
+
+	@RequestMapping(value = "/project/{id}", method = RequestMethod.GET)
+	public Project getProjectDetail(@PathVariable Integer id) {
+		Project p = pd.findOne(id);
+		return p;
+	}
+
+	@RequestMapping(value = "/project", method = RequestMethod.GET)
+	public List<Project> getProjects() {
+		return pd.findAll();
+	}
+
+	@RequestMapping(value = "/project", method = RequestMethod.POST, consumes = "application/json")
+	public Project saveProject(@RequestBody Project p) {
+		return pd.save(p);
+	}
+
+	@RequestMapping(value = "/project/{id}", method = RequestMethod.PUT, consumes = "application/json")
+	public Project updateProject(@RequestBody Project p, @PathVariable Integer id) {
+		if (pd.findOne(id) == null || p.getId() != id)
+			return null;
+		return pd.save(p);
+	}
+
+	@RequestMapping(value = "/project/{id}", method = RequestMethod.DELETE)
+	public void deleteProject(@PathVariable Integer id) {
+		pd.delete(id);
+	}
+}

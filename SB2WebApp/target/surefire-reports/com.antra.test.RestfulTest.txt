@@ -1,0 +1,44 @@
+-------------------------------------------------------------------------------
+Test set: com.antra.test.RestfulTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 3.854 sec <<< FAILURE! - in com.antra.test.RestfulTest
+updateDept(com.antra.test.RestfulTest)  Time elapsed: 3.62 sec  <<< ERROR!
+java.lang.Exception: Unexpected exception, expected<org.springframework.web.client.ResourceAccessException> but was<org.springframework.web.client.HttpClientErrorException>
+	at org.springframework.web.client.DefaultResponseErrorHandler.handleError(DefaultResponseErrorHandler.java:91)
+	at org.springframework.web.client.RestTemplate.handleResponseError(RestTemplate.java:589)
+	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:547)
+	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:503)
+	at org.springframework.web.client.RestTemplate.put(RestTemplate.java:382)
+	at com.antra.restful.RestClient.updateDept(RestClient.java:27)
+	at com.antra.test.RestfulTest.updateDept(RestfulTest.java:40)
+
+getDept(com.antra.test.RestfulTest)  Time elapsed: 0.029 sec  <<< ERROR!
+java.lang.Exception: Unexpected exception, expected<org.springframework.web.client.ResourceAccessException> but was<org.springframework.web.client.HttpClientErrorException>
+	at org.springframework.web.client.DefaultResponseErrorHandler.handleError(DefaultResponseErrorHandler.java:91)
+	at org.springframework.web.client.RestTemplate.handleResponseError(RestTemplate.java:589)
+	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:547)
+	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:503)
+	at org.springframework.web.client.RestTemplate.getForObject(RestTemplate.java:240)
+	at com.antra.restful.RestClient.getDept(RestClient.java:21)
+	at com.antra.test.RestfulTest.getDept(RestfulTest.java:31)
+
+createDept(com.antra.test.RestfulTest)  Time elapsed: 0.026 sec  <<< ERROR!
+java.lang.Exception: Unexpected exception, expected<org.springframework.web.client.ResourceAccessException> but was<org.springframework.web.client.HttpClientErrorException>
+	at org.springframework.web.client.DefaultResponseErrorHandler.handleError(DefaultResponseErrorHandler.java:91)
+	at org.springframework.web.client.RestTemplate.handleResponseError(RestTemplate.java:589)
+	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:547)
+	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:503)
+	at org.springframework.web.client.RestTemplate.postForObject(RestTemplate.java:331)
+	at com.antra.restful.RestClient.createDept(RestClient.java:37)
+	at com.antra.test.RestfulTest.createDept(RestfulTest.java:54)
+
+deleteDept(com.antra.test.RestfulTest)  Time elapsed: 0.002 sec  <<< ERROR!
+java.lang.Exception: Unexpected exception, expected<org.springframework.web.client.ResourceAccessException> but was<org.springframework.web.client.HttpClientErrorException>
+	at org.springframework.web.client.DefaultResponseErrorHandler.handleError(DefaultResponseErrorHandler.java:91)
+	at org.springframework.web.client.RestTemplate.handleResponseError(RestTemplate.java:589)
+	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:547)
+	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:503)
+	at org.springframework.web.client.RestTemplate.delete(RestTemplate.java:401)
+	at com.antra.restful.RestClient.deleteDept(RestClient.java:32)
+	at com.antra.test.RestfulTest.deleteDept(RestfulTest.java:45)
+

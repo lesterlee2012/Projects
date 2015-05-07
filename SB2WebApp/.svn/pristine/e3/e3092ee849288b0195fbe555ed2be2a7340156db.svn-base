@@ -1,0 +1,32 @@
+# Oracle DB Settings
+
+dataSource.driverClassName=oracle.jdbc.OracleDriver
+dataSource.url=jdbc:oracle:thin:@localhost:1521:XE
+dataSource.username=system
+dataSource.password=password
+
+# Properties that control the population of schema and data for a new data source
+dataSource.initLocation=classpath:script/oracle.sql
+
+# Property that determines which Hibernate dialect to use
+# (only applied with "applicationContext-hibernate.xml")
+hibernate.dialect=org.hibernate.dialect.Oracle10gDialect
+hibernate.hbm2ddl.auto=create
+hibernate.show_sql=false
+hibernate.generateDDL=true
+hibernate.enable_lazy_load_no_trans=true
+hibernate.c3p0.min_size=5
+hibernate.c3p0.max_size=20
+hibernate.c3p0.timeout=300
+hibernate.c3p0.max_statements=50
+hibernate.c3p0.idle_test_period=3000
+
+# H2 configuration
+h2.dialect=org.hibernate.dialect.H2Dialect
+h2.show_sql=true
+h2.generateDDL=true
+
+# Property that determines which database to use with an AbstractJpaVendorAdapter
+jpa.database=ORACLE
+jpa.basePackage=com.antra.entity
+test.database=H2

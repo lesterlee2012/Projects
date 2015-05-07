@@ -1,0 +1,26 @@
+package com.antra.test;
+
+import static org.junit.Assert.assertNotNull;
+
+import javax.sql.DataSource;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.antra.testConfig.TestContextConfig;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = TestContextConfig.class)
+@ActiveProfiles("default")
+public class JndiTest {
+	@Value("#{ds}")
+	private DataSource ds;
+	@Test
+	public void dsShouldNotBeNull() {
+		assertNotNull(ds);
+	}
+}
